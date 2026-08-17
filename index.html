@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VoidRecords - Where Sound Meets the Void</title>
+    <title>VoidRecords - Login & Registration</title>
 
     <!-- VoidRecords Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png?v=2">
-    <link rel="shortcut icon" href="favicon.png?v=2">
-    <link rel="apple-touch-icon" href="favicon.png?v=2">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <style>
         * {
@@ -27,6 +24,9 @@
             --secondary-white: #f5f5f5;
             --gray-light: #e0e0e0;
             --accent: #ffffff;
+            --success: #00d084;
+            --error: #ff4757;
+            --warning: #ffa502;
         }
 
         html {
@@ -40,7 +40,6 @@
             overflow-x: hidden;
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -52,36 +51,14 @@
             }
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes spin-slow {
+        @keyframes slideInDown {
             from {
-                transform: rotate(0deg);
+                opacity: 0;
+                transform: translateY(-100%);
             }
             to {
-                transform: rotate(360deg);
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -91,39 +68,6 @@
             }
             50% {
                 opacity: 1;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
             }
         }
 
@@ -154,6 +98,8 @@
             align-items: center;
             gap: 8px;
             font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
         }
 
         .logo-text {
@@ -170,10 +116,11 @@
             padding-left: 8px;
         }
 
-        .nav-center {
+        .nav-menu {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 30px;
+            align-items: center;
         }
 
         .nav-link {
@@ -184,87 +131,26 @@
             position: relative;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
+        .nav-link:hover {
             color: var(--primary-white);
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-btn {
-            padding: 8px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: transparent;
-            color: var(--primary-white);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-btn:hover {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.primary {
-            background: var(--primary-white);
-            color: var(--primary-black);
-            border: none;
-        }
-
-        .nav-btn.primary:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .user-info.hidden {
-            display: none;
-        }
-
-        .user-name {
-            color: var(--gray-light);
-            font-size: 14px;
+            gap: 20px;
         }
 
         .logout-btn {
-            padding: 8px 20px;
-            background: #ff4757;
+            background: var(--error);
             color: var(--primary-white);
             border: none;
+            padding: 8px 20px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            display: none;
         }
 
         .logout-btn:hover {
@@ -272,614 +158,355 @@
             transform: translateY(-2px);
         }
 
-        .hamburger {
+        .logout-btn.show {
+            display: block;
+        }
+
+        .user-name {
+            color: var(--gray-light);
+            font-size: 14px;
             display: none;
-            flex-direction: column;
-            cursor: pointer;
         }
 
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-white);
-            margin: 5px 0;
-            transition: 0.3s;
+        .user-name.show {
+            display: block;
         }
 
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
-            margin-top: 70px;
-        }
-
-        .stars,
-        .stars-2,
-        .stars-3 {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        /* Background Stars */
+        .stars-bg {
+            position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
-        .stars::before,
-        .stars::after,
-        .stars-2::before,
-        .stars-2::after,
-        .stars-3::before,
-        .stars-3::after {
-            content: '';
+        .star {
             position: absolute;
             width: 2px;
             height: 2px;
             background: white;
-            box-shadow:
-                50px 60px 0 -5px white,
-                130px 80px 0 -5px white,
-                90px 10px 0 -5px white,
-                130px 130px 0 -5px white,
-                90px 90px 0 -5px white;
+            border-radius: 50%;
             animation: twinkle 3s infinite;
         }
 
-        .stars-2::before {
-            animation-delay: 0.5s;
+        /* Main Container */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
         }
 
-        .stars-3::before {
-            animation-delay: 1s;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        /* Role Selection */
+        .role-selection {
             text-align: center;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        .hero-title {
-            font-size: clamp(48px, 10vw, 120px);
-            font-weight: 900;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .word {
-            display: inline-block;
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        .word:nth-child(2) {
-            animation: slideInRight 0.8s ease-out;
-        }
-
-        .hero-subtitle {
-            font-size: 24px;
-            color: var(--gray-light);
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 50px;
-            background: var(--primary-white);
-            color: var(--primary-black);
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 1px;
-            border: 2px solid var(--primary-white);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            animation: fadeInUp 1.4s ease-out;
-            text-transform: uppercase;
-        }
-
-        .cta-button:hover {
-            background: transparent;
-            color: var(--primary-white);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        }
-
-        /* Section Title */
-        .section-title {
+        .role-selection h1 {
             font-size: 48px;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-            width: 100%;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary-white);
+        .role-selection p {
+            color: var(--gray-light);
+            font-size: 18px;
+            margin-bottom: 50px;
         }
 
-        /* Artists Section */
-        .artists {
-            padding: 100px 20px;
-            background: var(--primary-black);
-        }
-
-        .artists-grid {
-            max-width: 1200px;
-            margin: 0 auto;
+        .role-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .artist-card {
-            text-align: center;
-            animation: fadeInUp 0.8s ease-out both;
+        .role-btn {
+            padding: 30px;
+            background: var(--tertiary-black);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: var(--primary-white);
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
             transition: all 0.3s ease;
+            letter-spacing: 1px;
+            animation: fadeInUp 0.8s ease-out both;
         }
 
-        .artist-card:nth-child(1) {
+        .role-btn:nth-child(1) {
             animation-delay: 0.1s;
         }
 
-        .artist-card:nth-child(2) {
+        .role-btn:nth-child(2) {
             animation-delay: 0.2s;
         }
 
-        .artist-card:nth-child(3) {
+        .role-btn:nth-child(3) {
             animation-delay: 0.3s;
         }
 
-        .artist-card:nth-child(4) {
+        .role-btn:nth-child(4) {
             animation-delay: 0.4s;
         }
 
-        .artist-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .artist-image {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .artist-card:hover .artist-image {
+        .role-btn:hover {
             border-color: var(--primary-white);
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
         }
 
-        .artist-icon {
-            font-size: 80px;
-            opacity: 0.8;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .artist-card h3 {
-            font-size: 22px;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .artist-card p {
-            color: var(--gray-light);
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Releases Section */
-        .releases {
-            padding: 100px 20px;
-            background: linear-gradient(180deg, var(--secondary-black) 0%, var(--primary-black) 100%);
-        }
-
-        .releases-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .release-card {
-            background: var(--tertiary-black);
+        /* Auth Container */
+        .auth-container {
+            max-width: 500px;
+            background: var(--secondary-black);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            animation: fadeInUp 0.8s ease-out both;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border-radius: 15px;
+            padding: 50px;
+            animation: fadeInUp 0.8s ease-out;
+            display: none;
         }
 
-        .release-card:nth-child(1) {
-            animation-delay: 0.1s;
+        .auth-container.show {
+            display: block;
         }
 
-        .release-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .release-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .release-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .release-card:hover::before {
-            left: 100%;
-        }
-
-        .release-card:hover {
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .release-image {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-        }
-
-        .vinyl-record {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #444, #000);
-            border: 3px solid var(--gray-light);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(0, 0, 0, 0.8);
-            animation: spin-slow 8s linear infinite;
-            position: relative;
-        }
-
-        .vinyl-record::before {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, #222, #000);
-            border-radius: 50%;
-            top: 20%;
-            left: 20%;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 1);
-        }
-
-        .vinyl-record::after {
-            content: '';
-            position: absolute;
-            width: 20%;
-            height: 20%;
-            background: radial-gradient(circle, #888, #333);
-            border-radius: 50%;
-            top: 40%;
-            left: 40%;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        .pulse {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .release-card h3 {
-            font-size: 20px;
-            margin: 15px 0;
-            letter-spacing: 1px;
-        }
-
-        .artist-name {
-            color: var(--gray-light);
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .release-date {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
-            margin-bottom: 20px;
-        }
-
-        .play-btn {
-            background: var(--primary-white);
-            color: var(--primary-black);
+        .back-btn {
+            background: none;
             border: none;
-            padding: 10px 25px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-        }
-
-        .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* About Section */
-        .about {
-            padding: 100px 20px;
-            background: var(--primary-black);
-        }
-
-        .about-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 48px;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
-
-        .about-text p {
             color: var(--gray-light);
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 30px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .stat:hover {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        .back-btn:hover {
+            color: var(--primary-white);
         }
 
-        .stat h4 {
+        .auth-title {
             font-size: 36px;
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
-        .stat p {
-            margin: 0;
+        .auth-subtitle {
             color: var(--gray-light);
-        }
-
-        .about-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .floating-box {
-            width: 300px;
-            height: 300px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .inner-box {
-            width: 80%;
-            height: 80%;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            animation: spin-slow 6s linear infinite reverse;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 20px;
-            background: linear-gradient(180deg, var(--secondary-black) 0%, var(--primary-black) 100%);
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 48px;
-            margin-bottom: 50px;
-            letter-spacing: 2px;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
+            margin-bottom: 40px;
+            font-size: 14px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .contact-form input,
-        .contact-form textarea {
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 15px;
+            padding: 12px 15px;
             background: var(--tertiary-black);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
             color: var(--primary-white);
-            border-radius: 5px;
-            font-family: inherit;
+            font-size: 14px;
             transition: all 0.3s ease;
+            font-family: inherit;
+            resize: vertical;
         }
 
-        .contact-form input:focus,
-        .contact-form textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-white);
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
         }
 
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
         .submit-btn {
+            width: 100%;
+            padding: 12px;
             background: var(--primary-white);
             color: var(--primary-black);
             border: none;
-            padding: 15px 50px;
+            border-radius: 8px;
             font-weight: 700;
+            font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
             transition: all 0.3s ease;
             letter-spacing: 1px;
             text-transform: uppercase;
+            margin-top: 20px;
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
         }
 
-        /* Footer */
-        .footer {
-            background: var(--secondary-black);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-content p {
-            color: var(--gray-light);
+        .info-box {
+            background: rgba(255, 165, 2, 0.1);
+            border: 1px solid var(--warning);
+            padding: 15px;
+            border-radius: 8px;
             margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-icon {
-            color: var(--gray-light);
-            text-decoration: none;
-            transition: all 0.3s ease;
             font-size: 14px;
-            letter-spacing: 0.5px;
+            color: #ffc107;
         }
 
-        .social-icon:hover {
-            color: var(--primary-white);
-            transform: translateY(-3px);
+        /* Messages */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.success {
+            background: rgba(0, 208, 132, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .message.error {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            animation: fadeInUp 0.8s ease-out;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .dashboard.show {
+            display: block;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .dashboard-header p {
+            color: var(--gray-light);
+            font-size: 18px;
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background: var(--secondary-black);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out both;
+            cursor: pointer;
+        }
+
+        .dashboard-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dashboard-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .dashboard-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .dashboard-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .dashboard-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .dashboard-card:hover {
+            border-color: var(--primary-white);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .dashboard-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .dashboard-card p {
+            color: var(--gray-light);
+            margin-bottom: 0;
+            line-height: 1.6;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-center {
-                display: none;
+            .auth-container {
+                padding: 30px;
+                max-width: 100%;
             }
 
-            .hamburger {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: clamp(36px, 8vw, 60px);
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 36px;
-            }
-
-            .artists-grid,
-            .releases-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo-records {
-                display: none;
-            }
-
-            .hero-subtitle {
-                font-size: 18px;
-            }
-
-            .cta-button {
-                padding: 12px 30px;
-                font-size: 14px;
-            }
-
-            .section-title {
+            .auth-title {
                 font-size: 28px;
             }
 
-            .about-text h2 {
-                font-size: 32px;
+            .role-buttons {
+                grid-template-columns: 1fr;
             }
 
-            .nav-right {
-                gap: 8px;
-            }
-
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 11px;
+            .nav-menu {
+                display: none;
             }
         }
     </style>
@@ -887,634 +514,1093 @@
 
 <body>
 
-    <!-- Navigation -->
+    <!-- Stars Background -->
+    <div class="stars-bg"></div>
+
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-text">VOID</span>
                 <span class="logo-records">RECORDS</span>
-            </div>
+            </a>
 
-            <ul class="nav-center">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#artists" class="nav-link">Artists</a></li>
-                <li><a href="#releases" class="nav-link">Releases</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#artists" class="nav-link">Artists</a></li>
+                <li><a href="index.html#releases" class="nav-link">Releases</a></li>
             </ul>
 
-            <div class="nav-right">
-
-                <div class="user-info" id="userInfo">
-                    <span class="user-name" id="userName"></span>
-
-                    <button
-                        class="logout-btn"
-                        id="logoutBtn"
-                        onclick="logout()">
-                        Logout
-                    </button>
-                </div>
-
-                <div id="authButtons">
-                    <a href="login.html" class="nav-btn">Login</a>
-
-                    <a href="login.html" class="nav-btn primary">
-                        Apply as Artist
-                    </a>
-                </div>
-
+            <div class="user-info">
+                <span class="user-name" id="userName"></span>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
             </div>
-
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
         </div>
     </nav>
 
+    <!-- Main Container -->
+    <div class="container">
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+        <!-- Role Selection -->
+        <div class="role-selection" id="roleSelection">
+            <h1>Select Your Role</h1>
+            <p>Choose how you want to connect with VoidRecords</p>
 
-        <div class="stars"></div>
-        <div class="stars-2"></div>
-        <div class="stars-3"></div>
-
-        <div class="hero-content">
-
-            <h1 class="hero-title">
-                <span class="word">VOID</span>
-                <span class="word">RECORDS</span>
-            </h1>
-
-            <p class="hero-subtitle">
-                Music Without Boundaries
-            </p>
-
-            <a href="#releases" class="cta-button">
-                Explore Now
-            </a>
-
-        </div>
-    </section>
-
-
-    <!-- Artists Section -->
-    <section id="artists" class="artists">
-
-        <div class="section-title">
-            Featured Artists
-        </div>
-
-        <div class="artists-grid">
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #000, #333);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>Luna Echo</h3>
-                <p>Ambient & Experimental</p>
-
-            </div>
-
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #1a1a1a, #444);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>Cipher</h3>
-                <p>Electronic & Techno</p>
-
-            </div>
-
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #0a0a0a, #2a2a2a);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>Nyx Collective</h3>
-                <p>Hip-Hop & Beat Production</p>
-
-            </div>
-
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #111, #555);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>Static Waves</h3>
-                <p>Indie & Alternative</p>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- Releases Section -->
-    <section id="releases" class="releases">
-
-        <div class="section-title">
-            Latest Releases
-        </div>
-
-        <div class="releases-grid">
-
-            <div class="release-card">
-
-                <div class="release-image">
-                    <div class="vinyl-record"></div>
-                    <div class="pulse"></div>
-                </div>
-
-                <h3>Echoes in the Void</h3>
-                <p class="artist-name">Luna Echo</p>
-                <p class="release-date">August 2026</p>
-
-                <button class="play-btn">
-                    ▶ Stream
+            <div class="role-buttons">
+                <button class="role-btn" onclick="selectRole('artist')">
+                    🎤 Artist Apply
                 </button>
 
-            </div>
-
-
-            <div class="release-card">
-
-                <div class="release-image">
-                    <div class="vinyl-record"></div>
-                    <div class="pulse"></div>
-                </div>
-
-                <h3>Digital Dreams</h3>
-                <p class="artist-name">Cipher</p>
-                <p class="release-date">July 2026</p>
-
-                <button class="play-btn">
-                    ▶ Stream
+                <button class="role-btn" onclick="selectRole('ar')">
+                    🎧 A&amp;R Manager
                 </button>
 
-            </div>
-
-
-            <div class="release-card">
-
-                <div class="release-image">
-                    <div class="vinyl-record"></div>
-                    <div class="pulse"></div>
-                </div>
-
-                <h3>Void Sessions Vol. 1</h3>
-                <p class="artist-name">Nyx Collective</p>
-                <p class="release-date">June 2026</p>
-
-                <button class="play-btn">
-                    ▶ Stream
+                <button class="role-btn" onclick="selectRole('owner')">
+                    👑 Owner
                 </button>
 
+                <button class="role-btn" onclick="selectRole('artist-login')">
+                    🎵 Artist Login
+                </button>
             </div>
-
         </div>
-    </section>
 
+        <!-- Auth Forms -->
+        <div class="auth-container" id="authContainer">
 
-    <!-- About Section -->
-    <section id="about" class="about">
+            <button class="back-btn" onclick="goBack()">← Back</button>
 
-        <div class="about-content">
+            <div id="messageContainer"></div>
 
-            <div class="about-text">
+            <!-- Artist Application Form -->
+            <div id="artistApplication" style="display: none;">
 
-                <h2>About VoidRecords</h2>
-
-                <p>
-                    VoidRecords is an independent record label dedicated
-                    to discovering and promoting innovative artists across
-                    genres. We believe in the power of music to transcend
-                    boundaries and create new experiences.
+                <h2 class="auth-title">Join as Artist</h2>
+                <p class="auth-subtitle">
+                    Submit your application to VoidRecords
                 </p>
 
-                <p>
-                    Founded in 2020, we've been at the forefront of digital
-                    music distribution, connecting artists with listeners
-                    worldwide through cutting-edge platforms and creative
-                    collaborations.
+                <div class="info-box">
+                    ℹ️ Your application will be reviewed by our team.
+                    You'll receive login credentials once approved.
+                </div>
+
+                <form onsubmit="handleArtistApplication(event)">
+
+                    <div class="form-group">
+                        <label for="artistName">Full Name</label>
+                        <input
+                            type="text"
+                            id="artistName"
+                            placeholder="Your full name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistEmail">Email</label>
+                        <input
+                            type="email"
+                            id="artistEmail"
+                            placeholder="Your email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistPhone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="artistPhone"
+                            placeholder="Your phone number"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistGenre">Music Genre</label>
+
+                        <select id="artistGenre" required>
+                            <option value="">Select your genre</option>
+                            <option value="hip-hop">Hip-Hop</option>
+                            <option value="electronic">Electronic</option>
+                            <option value="ambient">Ambient</option>
+                            <option value="indie">Indie</option>
+                            <option value="pop">Pop</option>
+                            <option value="r-b">R&amp;B</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistBio">Bio / About You</label>
+
+                        <textarea
+                            id="artistBio"
+                            placeholder="Tell us about yourself and your music"
+                            rows="4"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistLinks">
+                            Links (Spotify, SoundCloud, etc.)
+                        </label>
+
+                        <input
+                            type="url"
+                            id="artistLinks"
+                            placeholder="https://spotify.com/..."
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Submit Application
+                    </button>
+
+                </form>
+            </div>
+
+            <!-- A&R Login Form -->
+            <div id="arLoginForm" style="display: none;">
+
+                <h2 class="auth-title">A&amp;R Manager Login</h2>
+
+                <p class="auth-subtitle">
+                    Sign in to your account
                 </p>
 
-                <div class="stats">
+                <form onsubmit="handleARLogin(event)">
 
-                    <div class="stat">
-                        <h4>50+</h4>
-                        <p>Artists</p>
+                    <div class="form-group">
+                        <label for="arLoginEmail">Email</label>
+
+                        <input
+                            type="email"
+                            id="arLoginEmail"
+                            placeholder="Enter your email"
+                            required
+                        >
                     </div>
 
-                    <div class="stat">
-                        <h4>200+</h4>
-                        <p>Releases</p>
+                    <div class="form-group">
+                        <label for="arLoginPassword">Password</label>
+
+                        <input
+                            type="password"
+                            id="arLoginPassword"
+                            placeholder="Enter your password"
+                            required
+                        >
                     </div>
 
-                    <div class="stat">
-                        <h4>10M+</h4>
-                        <p>Streams</p>
-                    </div>
+                    <button type="submit" class="submit-btn">
+                        Login
+                    </button>
 
+                </form>
+
+                <div style="text-align: center; margin-top: 20px; color: var(--gray-light); font-size: 14px;">
+                    Don't have an account? Contact the owner to create one.
                 </div>
 
             </div>
 
+            <!-- Owner Login Form -->
+            <div id="ownerLoginForm" style="display: none;">
 
-            <div class="about-visual">
+                <h2 class="auth-title">Owner Login</h2>
 
-                <div class="floating-box">
-                    <div class="inner-box"></div>
+                <p class="auth-subtitle">
+                    Sign in to manage VoidRecords
+                </p>
+
+                <form onsubmit="handleOwnerLogin(event)">
+
+                    <div class="form-group">
+                        <label for="ownerLoginEmail">Email</label>
+
+                        <input
+                            type="email"
+                            id="ownerLoginEmail"
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ownerLoginPassword">Password</label>
+
+                        <input
+                            type="password"
+                            id="ownerLoginPassword"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Login
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- Artist Login Form -->
+            <div id="artistLoginForm" style="display: none;">
+
+                <h2 class="auth-title">Artist Login</h2>
+
+                <p class="auth-subtitle">
+                    Sign in to your account
+                </p>
+
+                <div class="info-box">
+                    ℹ️ Login credentials are provided after your application is approved by the team.
                 </div>
 
-            </div>
+                <form onsubmit="handleArtistLogin(event)">
 
-        </div>
-    </section>
+                    <div class="form-group">
+                        <label for="artistLoginEmail">Email</label>
 
+                        <input
+                            type="email"
+                            id="artistLoginEmail"
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+                    <div class="form-group">
+                        <label for="artistLoginPassword">Password</label>
 
-        <h2>Get in Touch</h2>
+                        <input
+                            type="password"
+                            id="artistLoginPassword"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
 
-        <form class="contact-form">
+                    <button type="submit" class="submit-btn">
+                        Login
+                    </button>
 
-            <div class="form-group">
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <input
-                    type="email"
-                    placeholder="Your Email"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <textarea
-                    placeholder="Your Message"
-                    rows="6"
-                    required></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">
-                Send Message
-            </button>
-
-        </form>
-
-    </section>
-
-
-    <!-- Footer -->
-    <footer class="footer">
-
-        <div class="footer-content">
-
-            <p>
-                &copy; 2026 VoidRecords. All rights reserved.
-            </p>
-
-            <div class="social-links">
-
-                <a href="#" class="social-icon">
-                    Spotify
-                </a>
-
-                <a href="#" class="social-icon">
-                    Apple Music
-                </a>
-
-                <a href="#" class="social-icon">
-                    Twitter
-                </a>
-
-                <a href="#" class="social-icon">
-                    Instagram
-                </a>
+                </form>
 
             </div>
 
         </div>
 
-    </footer>
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
 
+            <div class="dashboard-header">
+                <h1 id="dashboardTitle">Dashboard</h1>
+                <p id="dashboardSubtitle">
+                    Welcome to your VoidRecords portal
+                </p>
+            </div>
+
+            <div class="dashboard-content" id="dashboardContent">
+                <!-- Content loaded dynamically -->
+            </div>
+
+        </div>
+
+    </div>
 
     <script>
 
-        // Check if user is logged in
-        function checkUserLogin() {
+        // Initialize app
+        let currentRole = null;
+        let currentUser = null;
 
-            const currentUser =
-                localStorage.getItem('voidrecords_currentUser');
+        const OWNER_EMAIL = 'voidrecords287@gmail.com';
+        const OWNER_PASSWORD = 'gamerskory2210';
 
-            const userInfo =
-                document.getElementById('userInfo');
 
-            const authButtons =
-                document.getElementById('authButtons');
+        // Create stars background
+        function createStars() {
 
-            const userName =
-                document.getElementById('userName');
+            const starsBg = document.querySelector('.stars-bg');
 
-            const logoutBtn =
-                document.getElementById('logoutBtn');
+            for (let i = 0; i < 50; i++) {
 
-            if (currentUser) {
+                const star = document.createElement('div');
 
-                const user =
-                    JSON.parse(currentUser);
+                star.className = 'star';
 
-                userName.textContent =
-                    `Welcome, ${user.name}!`;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
 
-                userInfo.classList.remove('hidden');
+                star.style.animationDelay =
+                    Math.random() * 3 + 's';
 
-                authButtons.style.display =
-                    'none';
+                starsBg.appendChild(star);
+            }
+        }
+
+        createStars();
+
+
+        // Role Selection
+        function selectRole(role) {
+
+            currentRole = role;
+
+            document.getElementById('roleSelection').style.display = 'none';
+
+            document.getElementById('authContainer')
+                .classList.add('show');
+
+
+            // Hide all forms
+            document.getElementById('artistApplication')
+                .style.display = 'none';
+
+            document.getElementById('arLoginForm')
+                .style.display = 'none';
+
+            document.getElementById('ownerLoginForm')
+                .style.display = 'none';
+
+            document.getElementById('artistLoginForm')
+                .style.display = 'none';
+
+
+            // Show appropriate form
+            if (role === 'artist') {
+
+                document.getElementById('artistApplication')
+                    .style.display = 'block';
+
+            } else if (role === 'ar') {
+
+                document.getElementById('arLoginForm')
+                    .style.display = 'block';
+
+            } else if (role === 'owner') {
+
+                document.getElementById('ownerLoginForm')
+                    .style.display = 'block';
+
+            } else if (role === 'artist-login') {
+
+                document.getElementById('artistLoginForm')
+                    .style.display = 'block';
+            }
+
+            clearMessage();
+        }
+
+
+        // Go Back
+        function goBack() {
+
+            currentRole = null;
+
+            document.getElementById('roleSelection')
+                .style.display = 'block';
+
+            document.getElementById('authContainer')
+                .classList.remove('show');
+
+            clearForms();
+            clearMessage();
+        }
+
+
+        // Show Message
+        function showMessage(text, type) {
+
+            const container =
+                document.getElementById('messageContainer');
+
+            container.innerHTML =
+                `<div class="message ${type} show">${text}</div>`;
+
+            if (type === 'success') {
+
+                setTimeout(() => {
+                    container.innerHTML = '';
+                }, 3000);
+            }
+        }
+
+
+        // Clear Message
+        function clearMessage() {
+
+            document.getElementById('messageContainer')
+                .innerHTML = '';
+        }
+
+
+        // Clear Forms
+        function clearForms() {
+
+            document.querySelectorAll('input, textarea')
+                .forEach(input => input.value = '');
+        }
+
+
+        // Handle Artist Application
+        function handleArtistApplication(event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById('artistName').value;
+
+            const email =
+                document.getElementById('artistEmail').value;
+
+            const phone =
+                document.getElementById('artistPhone').value;
+
+            const genre =
+                document.getElementById('artistGenre').value;
+
+            const bio =
+                document.getElementById('artistBio').value;
+
+            const links =
+                document.getElementById('artistLinks').value;
+
+
+            const applications =
+                JSON.parse(
+                    localStorage.getItem(
+                        'voidrecords_applications'
+                    ) || '[]'
+                );
+
+
+            // Check if email already applied
+            if (applications.some(app => app.email === email)) {
+
+                showMessage(
+                    '✗ You have already submitted an application. Please wait for approval.',
+                    'error'
+                );
+
+                return;
+            }
+
+
+            applications.push({
+
+                id: Date.now(),
+
+                name: name,
+
+                email: email,
+
+                phone: phone,
+
+                genre: genre,
+
+                bio: bio,
+
+                links: links,
+
+                role: 'artist',
+
+                status: 'pending',
+
+                appliedDate:
+                    new Date().toLocaleString()
+            });
+
+
+            localStorage.setItem(
+                'voidrecords_applications',
+                JSON.stringify(applications)
+            );
+
+
+            showMessage(
+                '✓ Application submitted successfully! You will be notified once reviewed.',
+                'success'
+            );
+
+
+            setTimeout(() => {
+                goBack();
+            }, 2000);
+        }
+
+
+        // Handle A&R Login
+        function handleARLogin(event) {
+
+            event.preventDefault();
+
+            const email =
+                document.getElementById('arLoginEmail').value;
+
+            const password =
+                document.getElementById('arLoginPassword').value;
+
+
+            const users =
+                JSON.parse(
+                    localStorage.getItem(
+                        'voidrecords_users'
+                    ) || '{}'
+                );
+
+
+            const userKey = 'ar_' + email;
+
+
+            if (
+                users[userKey] &&
+                users[userKey].password === password
+            ) {
+
+                currentUser = {
+
+                    name: users[userKey].name,
+
+                    email: email,
+
+                    role: 'ar'
+                };
+
+
+                showDashboard();
+
+                showMessage(
+                    '✓ Login successful!',
+                    'success'
+                );
 
             } else {
 
-                userInfo.classList.add('hidden');
-
-                authButtons.style.display =
-                    'flex';
+                showMessage(
+                    '✗ Invalid email or password.',
+                    'error'
+                );
             }
         }
 
 
-        // Logout function
-        function logout() {
+        // Handle Owner Login
+        function handleOwnerLogin(event) {
 
-            localStorage.removeItem(
-                'voidrecords_currentUser'
-            );
+            event.preventDefault();
 
-            checkUserLogin();
+            const email =
+                document.getElementById('ownerLoginEmail').value;
 
-            window.location.href =
-                'index.html';
+            const password =
+                document.getElementById('ownerLoginPassword').value;
+
+
+            if (
+                email === OWNER_EMAIL &&
+                password === OWNER_PASSWORD
+            ) {
+
+                currentUser = {
+
+                    name: 'VoidRecords Owner',
+
+                    email: email,
+
+                    role: 'owner'
+                };
+
+
+                showDashboard();
+
+                showMessage(
+                    '✓ Welcome back, Owner!',
+                    'success'
+                );
+
+            } else {
+
+                showMessage(
+                    '✗ Invalid owner credentials.',
+                    'error'
+                );
+            }
         }
 
 
-        // Initialize on page load
-        window.addEventListener(
-            'load',
-            checkUserLogin
-        );
+        // Handle Artist Login
+        function handleArtistLogin(event) {
+
+            event.preventDefault();
+
+            const email =
+                document.getElementById('artistLoginEmail').value;
+
+            const password =
+                document.getElementById('artistLoginPassword').value;
 
 
-        // Smooth navigation
-        document
-            .querySelectorAll('a[href^="#"]')
-            .forEach(anchor => {
+            const users =
+                JSON.parse(
+                    localStorage.getItem(
+                        'voidrecords_users'
+                    ) || '{}'
+                );
 
-                anchor.addEventListener(
-                    'click',
-                    function (e) {
 
-                        e.preventDefault();
+            const userKey = 'artist_' + email;
 
-                        const target =
-                            document.querySelector(
-                                this.getAttribute('href')
-                            );
 
-                        if (target) {
+            if (
+                users[userKey] &&
+                users[userKey].password === password
+            ) {
 
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                currentUser = {
 
-                            updateActiveNav(
-                                this.getAttribute('href')
-                            );
-                        }
-                    }
+                    name: users[userKey].name,
+
+                    email: email,
+
+                    role: 'artist'
+                };
+
+
+                showDashboard();
+
+                showMessage(
+                    '✓ Login successful!',
+                    'success'
+                );
+
+            } else {
+
+                showMessage(
+                    '✗ Invalid email or password.',
+                    'error'
+                );
+            }
+        }
+
+
+        // Show Dashboard
+        function showDashboard() {
+
+            document.getElementById('authContainer')
+                .classList.remove('show');
+
+            document.getElementById('dashboard')
+                .classList.add('show');
+
+
+            document.getElementById('userName')
+                .textContent =
+                `Welcome, ${currentUser.name}`;
+
+
+            document.getElementById('userName')
+                .classList.add('show');
+
+
+            document.getElementById('logoutBtn')
+                .classList.add('show');
+
+
+            const title =
+                document.getElementById('dashboardTitle');
+
+            const subtitle =
+                document.getElementById('dashboardSubtitle');
+
+            const content =
+                document.getElementById('dashboardContent');
+
+
+            if (currentUser.role === 'owner') {
+
+                title.textContent =
+                    'Owner Dashboard';
+
+                subtitle.textContent =
+                    'Manage your record label';
+
+
+                content.innerHTML = `
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View and manage artist applications')">
+
+                        <h3>📋 Pending Applications</h3>
+
+                        <p>
+                            Review artist applications and approve/reject them.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="openCreateARManager()">
+
+                        <h3>👥 Create A&amp;R Manager</h3>
+
+                        <p>
+                            Add new A&amp;R managers to the team.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Manage all approved artists')">
+
+                        <h3>🎤 Manage Artists</h3>
+
+                        <p>
+                            View and manage all approved artists.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Upload and manage releases')">
+
+                        <h3>💿 Manage Releases</h3>
+
+                        <p>
+                            Upload and manage music releases.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View earnings and payments')">
+
+                        <h3>💰 Payments</h3>
+
+                        <p>
+                            View earnings and payment history.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Configure label settings')">
+
+                        <h3>⚙️ Settings</h3>
+
+                        <p>
+                            Configure label settings and preferences.
+                        </p>
+
+                    </div>
+                `;
+
+            } else if (currentUser.role === 'ar') {
+
+                title.textContent =
+                    'A&R Manager Dashboard';
+
+                subtitle.textContent =
+                    'Scout and manage talent';
+
+
+                content.innerHTML = `
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View your artist roster')">
+
+                        <h3>🎤 Artist Roster</h3>
+
+                        <p>
+                            View and manage your artist roster.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Scout new artists')">
+
+                        <h3>📝 Scout Artists</h3>
+
+                        <p>
+                            Find and reach out to new talent.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Monitor releases')">
+
+                        <h3>💿 Track Releases</h3>
+
+                        <p>
+                            Monitor upcoming releases and projects.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View analytics')">
+
+                        <h3>📊 Performance</h3>
+
+                        <p>
+                            View performance metrics of your artists.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Message artists')">
+
+                        <h3>📧 Communication</h3>
+
+                        <p>
+                            Message artists and label management.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Update your profile')">
+
+                        <h3>👤 My Profile</h3>
+
+                        <p>
+                            Update your profile information.
+                        </p>
+
+                    </div>
+                `;
+
+            } else if (currentUser.role === 'artist') {
+
+                title.textContent =
+                    'Artist Dashboard';
+
+                subtitle.textContent =
+                    'Manage your music and career';
+
+
+                content.innerHTML = `
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View your releases')">
+
+                        <h3>💿 My Releases</h3>
+
+                        <p>
+                            Upload and manage your music releases.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View your analytics')">
+
+                        <h3>📊 Analytics</h3>
+
+                        <p>
+                            Track your streams, listeners, and revenue.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Upload music')">
+
+                        <h3>🎵 Upload Music</h3>
+
+                        <p>
+                            Upload new tracks and albums.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Message your A&R')">
+
+                        <h3>💬 Messages</h3>
+
+                        <p>
+                            Communicate with your A&amp;R manager.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: Update your profile')">
+
+                        <h3>👤 My Profile</h3>
+
+                        <p>
+                            Update your artist profile and bio.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card"
+                        onclick="alert('Feature: View your earnings')">
+
+                        <h3>💰 Earnings</h3>
+
+                        <p>
+                            View your earnings and payments.
+                        </p>
+
+                    </div>
+                `;
+            }
+
+
+            // Save user session
+            localStorage.setItem(
+                'voidrecords_currentUser',
+                JSON.stringify(currentUser)
+            );
+        }
+
+
+        // Create A&R Manager
+        function openCreateARManager() {
+
+            const name =
+                prompt('Enter A&R Manager full name:');
+
+            if (!name) return;
+
+
+            const email =
+                prompt('Enter A&R Manager email:');
+
+            if (!email) return;
+
+
+            const password =
+                prompt('Enter A&R Manager password:');
+
+            if (!password) return;
+
+
+            const users =
+                JSON.parse(
+                    localStorage.getItem(
+                        'voidrecords_users'
+                    ) || '{}'
+                );
+
+
+            const userKey = 'ar_' + email;
+
+
+            if (users[userKey]) {
+
+                alert(
+                    '✗ This email is already registered.'
+                );
+
+                return;
+            }
+
+
+            users[userKey] = {
+
+                name: name,
+
+                email: email,
+
+                password: password,
+
+                role: 'ar'
+            };
+
+
+            localStorage.setItem(
+                'voidrecords_users',
+                JSON.stringify(users)
+            );
+
+
+            alert(
+                `✓ A&R Manager "${name}" created successfully!\n\nEmail: ${email}\nPassword: ${password}`
+            );
+        }
+
+
+        // Logout
+        document.getElementById('logoutBtn')
+            .addEventListener('click', () => {
+
+                currentUser = null;
+                currentRole = null;
+
+
+                document.getElementById('dashboard')
+                    .classList.remove('show');
+
+
+                document.getElementById('roleSelection')
+                    .style.display = 'block';
+
+
+                document.getElementById('userName')
+                    .classList.remove('show');
+
+
+                document.getElementById('logoutBtn')
+                    .classList.remove('show');
+
+
+                clearMessage();
+
+
+                localStorage.removeItem(
+                    'voidrecords_currentUser'
                 );
             });
 
 
-        // Update active navigation link
-        function updateActiveNav(id) {
+        // Check if user is already logged in
+        window.addEventListener('load', () => {
 
-            document
-                .querySelectorAll('.nav-link')
-                .forEach(link => {
-
-                    link.classList.remove(
-                        'active'
-                    );
-                });
-
-            const activeLink =
-                document.querySelector(
-                    `a[href="${id}"]`
+            const savedUser =
+                localStorage.getItem(
+                    'voidrecords_currentUser'
                 );
 
-            if (activeLink) {
-                activeLink.classList.add(
-                    'active'
-                );
+
+            if (savedUser) {
+
+                currentUser =
+                    JSON.parse(savedUser);
+
+                currentRole =
+                    currentUser.role;
+
+                showDashboard();
             }
-        }
-
-
-        // Update active nav on scroll
-        window.addEventListener(
-            'scroll',
-            () => {
-
-                let current = '';
-
-                const sections =
-                    document.querySelectorAll(
-                        'section'
-                    );
-
-                sections.forEach(section => {
-
-                    const sectionTop =
-                        section.offsetTop;
-
-                    const sectionHeight =
-                        section.clientHeight;
-
-                    if (
-                        pageYOffset >=
-                        sectionTop - 200
-                    ) {
-
-                        current =
-                            section.getAttribute(
-                                'id'
-                            );
-                    }
-                });
-
-                if (current) {
-
-                    document
-                        .querySelectorAll(
-                            '.nav-link'
-                        )
-                        .forEach(link => {
-
-                            link.classList.remove(
-                                'active'
-                            );
-                        });
-
-                    document
-                        .querySelector(
-                            `a[href="#${current}"]`
-                        )
-                        ?.classList.add(
-                            'active'
-                        );
-                }
-            }
-        );
-
-
-        // Parallax effect for hero
-        window.addEventListener(
-            'scroll',
-            () => {
-
-                const stars =
-                    document.querySelectorAll(
-                        '.stars, .stars-2, .stars-3'
-                    );
-
-                stars.forEach(
-                    (star, index) => {
-
-                        star.style.transform =
-                            `translateY(${
-                                window.scrollY *
-                                (0.3 + index * 0.1)
-                            }px)`;
-                    }
-                );
-            }
-        );
-
-
-        // Rotate vinyl on hover
-        document
-            .querySelectorAll(
-                '.vinyl-record'
-            )
-            .forEach(vinyl => {
-
-                vinyl.addEventListener(
-                    'mouseenter',
-                    function () {
-
-                        this.style.animationPlayState =
-                            'paused';
-                    }
-                );
-
-                vinyl.addEventListener(
-                    'mouseleave',
-                    function () {
-
-                        this.style.animationPlayState =
-                            'running';
-                    }
-                );
-            });
-
-
-        // Contact form submission
-        const contactForm =
-            document.querySelector(
-                '.contact-form'
-            );
-
-        if (contactForm) {
-
-            contactForm.addEventListener(
-                'submit',
-                (e) => {
-
-                    e.preventDefault();
-
-                    const submitBtn =
-                        contactForm.querySelector(
-                            '.submit-btn'
-                        );
-
-                    const originalText =
-                        submitBtn.textContent;
-
-                    submitBtn.textContent =
-                        'Message Sent! ✓';
-
-                    submitBtn.style.background =
-                        'var(--accent)';
-
-                    setTimeout(() => {
-
-                        submitBtn.textContent =
-                            originalText;
-
-                        submitBtn.style.background =
-                            'var(--primary-white)';
-
-                        contactForm.reset();
-
-                    }, 3000);
-                }
-            );
-        }
-
-
-        console.log(
-            '%cWelcome to VoidRecords',
-            'color: white; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(255,255,255,0.5);'
-        );
-
-        console.log(
-            '%cMusic Without Boundaries',
-            'color: #e0e0e0; font-size: 14px;'
-        );
+        });
 
     </script>
 
