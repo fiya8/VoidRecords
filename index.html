@@ -162,7 +162,7 @@
             padding-left: 8px;
         }
 
-        .nav-menu {
+        .nav-center {
             display: flex;
             list-style: none;
             gap: 40px;
@@ -195,6 +195,73 @@
         .nav-link:hover::after,
         .nav-link.active::after {
             width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: var(--primary-white);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--primary-white);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.primary {
+            background: var(--primary-white);
+            color: var(--primary-black);
+            border: none;
+        }
+
+        .nav-btn.primary:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info.hidden {
+            display: none;
+        }
+
+        .user-name {
+            color: var(--gray-light);
+            font-size: 14px;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: #ff4757;
+            color: var(--primary-white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff3838;
+            transform: translateY(-2px);
         }
 
         .hamburger {
@@ -741,7 +808,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-menu {
+            .nav-center {
                 display: none;
             }
 
@@ -769,6 +836,11 @@
             .releases-grid {
                 grid-template-columns: 1fr;
             }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -792,6 +864,15 @@
             .about-text h2 {
                 font-size: 32px;
             }
+
+            .nav-right {
+                gap: 8px;
+            }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -803,13 +884,23 @@
                 <span class="logo-text">VOID</span>
                 <span class="logo-records">RECORDS</span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-center">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#artists" class="nav-link">Artists</a></li>
                 <li><a href="#releases" class="nav-link">Releases</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <div class="nav-right">
+                <div class="user-info" id="userInfo">
+                    <span class="user-name" id="userName"></span>
+                    <button class="logout-btn" id="logoutBtn" onclick="logout()">Logout</button>
+                </div>
+                <div id="authButtons">
+                    <a href="login.html" class="nav-btn">Login</a>
+                    <a href="login.html" class="nav-btn primary">Apply as Artist</a>
+                </div>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -966,6 +1057,35 @@
     </footer>
 
     <script>
+        // Check if user is logged in
+        function checkUserLogin() {
+            const currentUser = localStorage.getItem('voidrecords_currentUser');
+            const userInfo = document.getElementById('userInfo');
+            const authButtons = document.getElementById('authButtons');
+            const userName = document.getElementById('userName');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                userName.textContent = `Welcome, ${user.name}!`;
+                userInfo.classList.remove('hidden');
+                authButtons.style.display = 'none';
+            } else {
+                userInfo.classList.add('hidden');
+                authButtons.style.display = 'flex';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('voidrecords_currentUser');
+            checkUserLogin();
+            window.location.href = 'index.html';
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', checkUserLogin);
+
         // Smooth navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1047,17 +1167,6 @@
                 }, 3000);
             });
         }
-PUBLIC "-//W3C//DTD HTML 4.01//EN"
-      "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en-US">
-<head profile="http://www.w3.org/2005/10/profile">
-<link rel="icon" 
-      type="image/png" 
-      href="file:///home/chronos/u-b5e268e4302b933211ca1308e5034257d066232d/MyFiles/Downloads/Screenshot%202026-08-17%2012.25.27%20PM%20(1).png">
-[…]
-</head>
-[…]
-</html>
 
         console.log('%cWelcome to VoidRecords', 'color: white; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(255,255,255,0.5);');
         console.log('%cMusic Without Boundaries', 'color: #e0e0e0; font-size: 14px;');
