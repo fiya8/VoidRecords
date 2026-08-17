@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- VoidRecords Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png?v=2">
+    <link rel="shortcut icon" href="favicon.png?v=2">
+    <link rel="apple-touch-icon" href="favicon.png?v=2">
+
     <title>VoidRecords - Login & Registration</title>
+
     <style>
         * {
             margin: 0;
@@ -562,258 +570,588 @@
         }
     </style>
 </head>
+
 <body>
+
     <!-- Stars Background -->
     <div class="stars-bg"></div>
 
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
+
             <a href="index.html" class="logo">
                 <span class="logo-text">VOID</span>
                 <span class="logo-records">RECORDS</span>
             </a>
+
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="index.html#artists" class="nav-link">Artists</a></li>
-                <li><a href="index.html#releases" class="nav-link">Releases</a></li>
+                <li>
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+
+                <li>
+                    <a href="index.html#artists" class="nav-link">Artists</a>
+                </li>
+
+                <li>
+                    <a href="index.html#releases" class="nav-link">Releases</a>
+                </li>
             </ul>
+
             <div class="user-info">
                 <span class="user-name" id="userName"></span>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
+
+                <button
+                    class="logout-btn"
+                    id="logoutBtn">
+                    Logout
+                </button>
             </div>
+
         </div>
     </nav>
 
     <!-- Main Container -->
     <div class="container">
+
         <!-- Role Selection -->
-        <div class="role-selection" id="roleSelection">
+        <div
+            class="role-selection"
+            id="roleSelection">
+
             <h1>Select Your Role</h1>
-            <p>Choose how you want to connect with VoidRecords</p>
+
+            <p>
+                Choose how you want to connect with VoidRecords
+            </p>
+
             <div class="role-buttons">
-                <button class="role-btn" onclick="selectRole('artist')">🎤 Artist</button>
-                <button class="role-btn" onclick="selectRole('ar')">🎧 A&R Manager</button>
-                <button class="role-btn" onclick="selectRole('owner')">👑 Owner</button>
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('artist')">
+                    🎤 Artist
+                </button>
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('ar')">
+                    🎧 A&amp;R Manager
+                </button>
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('owner')">
+                    👑 Owner
+                </button>
+
             </div>
         </div>
 
         <!-- Auth Forms -->
-        <div class="auth-container" id="authContainer">
-            <button class="back-btn" onclick="goBack()">← Back</button>
-            
+        <div
+            class="auth-container"
+            id="authContainer">
+
+            <button
+                class="back-btn"
+                onclick="goBack()">
+                ← Back
+            </button>
+
             <div id="messageContainer"></div>
 
             <!-- Login Form -->
             <div id="loginForm">
-                <h2 class="auth-title">Welcome Back</h2>
-                <p class="auth-subtitle">Sign in to your account</p>
-                
+
+                <h2 class="auth-title">
+                    Welcome Back
+                </h2>
+
+                <p class="auth-subtitle">
+                    Sign in to your account
+                </p>
+
                 <form onsubmit="handleLogin(event)">
+
                     <div class="form-group">
-                        <label for="loginEmail">Email</label>
-                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+                        <label for="loginEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="Enter your email"
+                            required>
+
                     </div>
+
                     <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Enter your password"
+                            required>
+
                     </div>
-                    <button type="submit" class="submit-btn">Login</button>
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+                        Login
+                    </button>
+
                 </form>
 
                 <div class="toggle-form">
-                    Don't have an account? <button onclick="toggleForm()">Sign Up</button>
+                    Don't have an account?
+
+                    <button onclick="toggleForm()">
+                        Sign Up
+                    </button>
                 </div>
+
             </div>
 
             <!-- Registration Form -->
-            <div id="signupForm" style="display: none;">
-                <h2 class="auth-title">Create Account</h2>
-                <p class="auth-subtitle">Join VoidRecords Community</p>
-                
+            <div
+                id="signupForm"
+                style="display: none;">
+
+                <h2 class="auth-title">
+                    Create Account
+                </h2>
+
+                <p class="auth-subtitle">
+                    Join VoidRecords Community
+                </p>
+
                 <form onsubmit="handleSignup(event)">
+
                     <div class="form-group">
-                        <label for="signupName">Full Name</label>
-                        <input type="text" id="signupName" placeholder="Enter your full name" required>
+
+                        <label for="signupName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="signupName"
+                            placeholder="Enter your full name"
+                            required>
+
                     </div>
+
                     <div class="form-group">
-                        <label for="signupEmail">Email</label>
-                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+
+                        <label for="signupEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="signupEmail"
+                            placeholder="Enter your email"
+                            required>
+
                     </div>
+
                     <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" placeholder="Create a password (min 6 characters)" required minlength="6">
+
+                        <label for="signupPassword">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="signupPassword"
+                            placeholder="Create a password (min 6 characters)"
+                            required
+                            minlength="6">
+
                     </div>
+
                     <div class="form-group">
-                        <label for="signupConfirm">Confirm Password</label>
-                        <input type="password" id="signupConfirm" placeholder="Confirm your password" required>
+
+                        <label for="signupConfirm">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="signupConfirm"
+                            placeholder="Confirm your password"
+                            required>
+
                     </div>
-                    <button type="submit" class="submit-btn">Create Account</button>
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+                        Create Account
+                    </button>
+
                 </form>
 
                 <div class="toggle-form">
-                    Already have an account? <button onclick="toggleForm()">Sign In</button>
+                    Already have an account?
+
+                    <button onclick="toggleForm()">
+                        Sign In
+                    </button>
                 </div>
+
             </div>
+
         </div>
 
         <!-- Dashboard -->
-        <div class="dashboard" id="dashboard">
+        <div
+            class="dashboard"
+            id="dashboard">
+
             <div class="dashboard-header">
-                <h1 id="dashboardTitle">Dashboard</h1>
-                <p id="dashboardSubtitle">Welcome to your VoidRecords portal</p>
+
+                <h1 id="dashboardTitle">
+                    Dashboard
+                </h1>
+
+                <p id="dashboardSubtitle">
+                    Welcome to your VoidRecords portal
+                </p>
+
             </div>
 
-            <div class="dashboard-content" id="dashboardContent">
+            <div
+                class="dashboard-content"
+                id="dashboardContent">
                 <!-- Content loaded dynamically -->
             </div>
+
         </div>
+
     </div>
 
     <script>
+
         // Initialize app
         let currentRole = null;
         let currentUser = null;
-        const OWNER_EMAIL = 'voidrecords287@gmail.com';
-        const OWNER_PASSWORD = 'gamerskory2210';
+
+        const OWNER_EMAIL =
+            'voidrecords287@gmail.com';
+
+        const OWNER_PASSWORD =
+            'gamerskory2210';
+
 
         // Create stars background
         function createStars() {
-            const starsBg = document.querySelector('.stars-bg');
+
+            const starsBg =
+                document.querySelector('.stars-bg');
+
             for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
+
+                const star =
+                    document.createElement('div');
+
                 star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
+
+                star.style.left =
+                    Math.random() * 100 + '%';
+
+                star.style.top =
+                    Math.random() * 100 + '%';
+
+                star.style.animationDelay =
+                    Math.random() * 3 + 's';
+
                 starsBg.appendChild(star);
             }
         }
 
         createStars();
 
+
         // Role Selection
         function selectRole(role) {
+
             currentRole = role;
-            document.getElementById('roleSelection').style.display = 'none';
-            document.getElementById('authContainer').classList.add('show');
+
+            document.getElementById(
+                'roleSelection'
+            ).style.display = 'none';
+
+            document.getElementById(
+                'authContainer'
+            ).classList.add('show');
         }
+
 
         // Go Back
         function goBack() {
+
             currentRole = null;
-            document.getElementById('roleSelection').style.display = 'block';
-            document.getElementById('authContainer').classList.remove('show');
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('signupForm').style.display = 'none';
+
+            document.getElementById(
+                'roleSelection'
+            ).style.display = 'block';
+
+            document.getElementById(
+                'authContainer'
+            ).classList.remove('show');
+
+            document.getElementById(
+                'loginForm'
+            ).style.display = 'block';
+
+            document.getElementById(
+                'signupForm'
+            ).style.display = 'none';
+
             clearForms();
             clearMessage();
         }
 
+
         // Toggle between Login and Signup
         function toggleForm() {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            
+
+            const loginForm =
+                document.getElementById('loginForm');
+
+            const signupForm =
+                document.getElementById('signupForm');
+
             if (loginForm.style.display === 'none') {
+
                 loginForm.style.display = 'block';
                 signupForm.style.display = 'none';
+
             } else {
+
                 loginForm.style.display = 'none';
                 signupForm.style.display = 'block';
             }
+
             clearMessage();
         }
 
+
         // Show Message
         function showMessage(text, type) {
-            const container = document.getElementById('messageContainer');
-            container.innerHTML = `<div class="message ${type} show">${text}</div>`;
-            
+
+            const container =
+                document.getElementById(
+                    'messageContainer'
+                );
+
+            container.innerHTML =
+                `<div class="message ${type} show">${text}</div>`;
+
             if (type === 'success') {
+
                 setTimeout(() => {
                     container.innerHTML = '';
                 }, 3000);
             }
         }
 
+
         // Clear Message
         function clearMessage() {
-            document.getElementById('messageContainer').innerHTML = '';
+
+            document.getElementById(
+                'messageContainer'
+            ).innerHTML = '';
         }
+
 
         // Clear Forms
         function clearForms() {
-            document.getElementById('loginForm').querySelectorAll('input').forEach(input => input.value = '');
-            document.getElementById('signupForm').querySelectorAll('input').forEach(input => input.value = '');
+
+            document
+                .getElementById('loginForm')
+                .querySelectorAll('input')
+                .forEach(input => {
+                    input.value = '';
+                });
+
+            document
+                .getElementById('signupForm')
+                .querySelectorAll('input')
+                .forEach(input => {
+                    input.value = '';
+                });
         }
+
 
         // Handle Login
         function handleLogin(event) {
+
             event.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+
+            const email =
+                document.getElementById(
+                    'loginEmail'
+                ).value;
+
+            const password =
+                document.getElementById(
+                    'loginPassword'
+                ).value;
+
 
             // Check if owner
             if (currentRole === 'owner') {
-                if (email === OWNER_EMAIL && password === OWNER_PASSWORD) {
+
+                if (
+                    email === OWNER_EMAIL &&
+                    password === OWNER_PASSWORD
+                ) {
+
                     currentUser = {
                         name: 'VoidRecords Owner',
                         email: email,
                         role: 'owner'
                     };
-                    showDashboard();
-                    showMessage('✓ Welcome back, Owner!', 'success');
-                } else {
-                    showMessage('✗ Invalid owner credentials. Please try again.', 'error');
-                }
-            } else {
-                // Check localStorage for regular users
-                const users = JSON.parse(localStorage.getItem('voidrecords_users') || '{}');
-                const userKey = currentRole + '_' + email;
 
-                if (users[userKey] && users[userKey].password === password) {
+                    showDashboard();
+
+                    showMessage(
+                        '✓ Welcome back, Owner!',
+                        'success'
+                    );
+
+                } else {
+
+                    showMessage(
+                        '✗ Invalid owner credentials. Please try again.',
+                        'error'
+                    );
+                }
+
+            } else {
+
+                // Check localStorage for regular users
+                const users =
+                    JSON.parse(
+                        localStorage.getItem(
+                            'voidrecords_users'
+                        ) || '{}'
+                    );
+
+                const userKey =
+                    currentRole + '_' + email;
+
+
+                if (
+                    users[userKey] &&
+                    users[userKey].password === password
+                ) {
+
                     currentUser = {
                         name: users[userKey].name,
                         email: email,
                         role: currentRole
                     };
+
                     showDashboard();
-                    showMessage('✓ Login successful!', 'success');
+
+                    showMessage(
+                        '✓ Login successful!',
+                        'success'
+                    );
+
                 } else {
-                    showMessage('✗ Invalid email or password. Please try again.', 'error');
+
+                    showMessage(
+                        '✗ Invalid email or password. Please try again.',
+                        'error'
+                    );
                 }
             }
         }
 
+
         // Handle Signup
         function handleSignup(event) {
+
             event.preventDefault();
 
             if (currentRole === 'owner') {
-                showMessage('✗ Owner accounts cannot be created. Only the default owner account is available.', 'error');
+
+                showMessage(
+                    '✗ Owner accounts cannot be created. Only the default owner account is available.',
+                    'error'
+                );
+
                 return;
             }
 
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirm = document.getElementById('signupConfirm').value;
+            const name =
+                document.getElementById(
+                    'signupName'
+                ).value;
+
+            const email =
+                document.getElementById(
+                    'signupEmail'
+                ).value;
+
+            const password =
+                document.getElementById(
+                    'signupPassword'
+                ).value;
+
+            const confirm =
+                document.getElementById(
+                    'signupConfirm'
+                ).value;
+
 
             if (password !== confirm) {
-                showMessage('✗ Passwords do not match.', 'error');
+
+                showMessage(
+                    '✗ Passwords do not match.',
+                    'error'
+                );
+
                 return;
             }
+
 
             // Save to localStorage
-            const users = JSON.parse(localStorage.getItem('voidrecords_users') || '{}');
-            const userKey = currentRole + '_' + email;
+            const users =
+                JSON.parse(
+                    localStorage.getItem(
+                        'voidrecords_users'
+                    ) || '{}'
+                );
+
+            const userKey =
+                currentRole + '_' + email;
+
 
             if (users[userKey]) {
-                showMessage('✗ This email is already registered.', 'error');
+
+                showMessage(
+                    '✗ This email is already registered.',
+                    'error'
+                );
+
                 return;
             }
+
 
             users[userKey] = {
                 name: name,
@@ -822,166 +1160,356 @@
                 role: currentRole
             };
 
-            localStorage.setItem('voidrecords_users', JSON.stringify(users));
-            
+
+            localStorage.setItem(
+                'voidrecords_users',
+                JSON.stringify(users)
+            );
+
+
             currentUser = {
                 name: name,
                 email: email,
                 role: currentRole
             };
 
+
             showDashboard();
-            showMessage('✓ Account created and logged in!', 'success');
+
+            showMessage(
+                '✓ Account created and logged in!',
+                'success'
+            );
         }
+
 
         // Show Dashboard
         function showDashboard() {
-            document.getElementById('authContainer').classList.remove('show');
-            document.getElementById('dashboard').classList.add('show');
-            document.getElementById('userName').textContent = `Welcome, ${currentUser.name}`;
-            document.getElementById('userName').classList.add('show');
-            document.getElementById('logoutBtn').classList.add('show');
 
-            const title = document.getElementById('dashboardTitle');
-            const subtitle = document.getElementById('dashboardSubtitle');
-            const content = document.getElementById('dashboardContent');
+            document.getElementById(
+                'authContainer'
+            ).classList.remove('show');
+
+            document.getElementById(
+                'dashboard'
+            ).classList.add('show');
+
+            document.getElementById(
+                'userName'
+            ).textContent =
+                `Welcome, ${currentUser.name}`;
+
+            document.getElementById(
+                'userName'
+            ).classList.add('show');
+
+            document.getElementById(
+                'logoutBtn'
+            ).classList.add('show');
+
+
+            const title =
+                document.getElementById(
+                    'dashboardTitle'
+                );
+
+            const subtitle =
+                document.getElementById(
+                    'dashboardSubtitle'
+                );
+
+            const content =
+                document.getElementById(
+                    'dashboardContent'
+                );
+
 
             if (currentUser.role === 'owner') {
-                title.textContent = 'Owner Dashboard';
-                subtitle.textContent = 'Manage your record label';
+
+                title.textContent =
+                    'Owner Dashboard';
+
+                subtitle.textContent =
+                    'Manage your record label';
+
                 content.innerHTML = `
+
                     <div class="dashboard-card">
                         <h3>📊 Analytics</h3>
-                        <p>Track your label's performance, streams, and revenue.</p>
-                        <button class="card-btn">View Analytics</button>
+                        <p>
+                            Track your label's performance,
+                            streams, and revenue.
+                        </p>
+                        <button class="card-btn">
+                            View Analytics
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>🎤 Manage Artists</h3>
-                        <p>Add, edit, and manage all your artists on the platform.</p>
-                        <button class="card-btn">Manage Artists</button>
+                        <p>
+                            Add, edit, and manage all your
+                            artists on the platform.
+                        </p>
+                        <button class="card-btn">
+                            Manage Artists
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>💿 Manage Releases</h3>
-                        <p>Upload and manage music releases and albums.</p>
-                        <button class="card-btn">Manage Releases</button>
+                        <p>
+                            Upload and manage music releases
+                            and albums.
+                        </p>
+                        <button class="card-btn">
+                            Manage Releases
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>👥 Team Management</h3>
-                        <p>Manage A&R managers and team members.</p>
-                        <button class="card-btn">Manage Team</button>
+                        <p>
+                            Manage A&R managers and team members.
+                        </p>
+                        <button class="card-btn">
+                            Manage Team
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>💰 Payments</h3>
-                        <p>View earnings and payment information.</p>
-                        <button class="card-btn">Payment History</button>
+                        <p>
+                            View earnings and payment information.
+                        </p>
+                        <button class="card-btn">
+                            Payment History
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>⚙️ Settings</h3>
-                        <p>Configure label settings and preferences.</p>
-                        <button class="card-btn">Settings</button>
+                        <p>
+                            Configure label settings and preferences.
+                        </p>
+                        <button class="card-btn">
+                            Settings
+                        </button>
                     </div>
+
                 `;
+
             } else if (currentUser.role === 'ar') {
-                title.textContent = 'A&R Manager Dashboard';
-                subtitle.textContent = 'Scout and manage talent';
+
+                title.textContent =
+                    'A&R Manager Dashboard';
+
+                subtitle.textContent =
+                    'Scout and manage talent';
+
                 content.innerHTML = `
+
                     <div class="dashboard-card">
                         <h3>🎤 Artist Roster</h3>
-                        <p>View and manage artists you're working with.</p>
-                        <button class="card-btn">View Roster</button>
+                        <p>
+                            View and manage artists you're working with.
+                        </p>
+                        <button class="card-btn">
+                            View Roster
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>📝 Scout Artists</h3>
-                        <p>Find and reach out to new talented artists.</p>
-                        <button class="card-btn">Scout</button>
+                        <p>
+                            Find and reach out to new talented artists.
+                        </p>
+                        <button class="card-btn">
+                            Scout
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>💿 Track Releases</h3>
-                        <p>Monitor upcoming releases and projects.</p>
-                        <button class="card-btn">Releases</button>
+                        <p>
+                            Monitor upcoming releases and projects.
+                        </p>
+                        <button class="card-btn">
+                            Releases
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>📊 Performance</h3>
-                        <p>View performance metrics of managed artists.</p>
-                        <button class="card-btn">Analytics</button>
+                        <p>
+                            View performance metrics of managed artists.
+                        </p>
+                        <button class="card-btn">
+                            Analytics
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>📧 Communication</h3>
-                        <p>Message artists and label management.</p>
-                        <button class="card-btn">Messages</button>
+                        <p>
+                            Message artists and label management.
+                        </p>
+                        <button class="card-btn">
+                            Messages
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>👤 My Profile</h3>
-                        <p>Update your profile and contact information.</p>
-                        <button class="card-btn">Profile</button>
+                        <p>
+                            Update your profile and contact information.
+                        </p>
+                        <button class="card-btn">
+                            Profile
+                        </button>
                     </div>
+
                 `;
+
             } else if (currentUser.role === 'artist') {
-                title.textContent = 'Artist Dashboard';
-                subtitle.textContent = 'Manage your music and career';
+
+                title.textContent =
+                    'Artist Dashboard';
+
+                subtitle.textContent =
+                    'Manage your music and career';
+
                 content.innerHTML = `
+
                     <div class="dashboard-card">
                         <h3>💿 My Releases</h3>
-                        <p>Upload and manage your music releases.</p>
-                        <button class="card-btn">View Releases</button>
+                        <p>
+                            Upload and manage your music releases.
+                        </p>
+                        <button class="card-btn">
+                            View Releases
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>📊 Analytics</h3>
-                        <p>Track your streams, listeners, and revenue.</p>
-                        <button class="card-btn">View Analytics</button>
+                        <p>
+                            Track your streams, listeners, and revenue.
+                        </p>
+                        <button class="card-btn">
+                            View Analytics
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>🎵 Upload Music</h3>
-                        <p>Upload new tracks and albums to VoidRecords.</p>
-                        <button class="card-btn">Upload</button>
+                        <p>
+                            Upload new tracks and albums to VoidRecords.
+                        </p>
+                        <button class="card-btn">
+                            Upload
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>💬 Messages</h3>
-                        <p>Communicate with your A&R manager and label.</p>
-                        <button class="card-btn">Messages</button>
+                        <p>
+                            Communicate with your A&R manager and label.
+                        </p>
+                        <button class="card-btn">
+                            Messages
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>👤 My Profile</h3>
-                        <p>Update your artist profile and bio.</p>
-                        <button class="card-btn">Profile</button>
+                        <p>
+                            Update your artist profile and bio.
+                        </p>
+                        <button class="card-btn">
+                            Profile
+                        </button>
                     </div>
+
                     <div class="dashboard-card">
                         <h3>💰 Earnings</h3>
-                        <p>View your earnings and payment details.</p>
-                        <button class="card-btn">Earnings</button>
+                        <p>
+                            View your earnings and payment details.
+                        </p>
+                        <button class="card-btn">
+                            Earnings
+                        </button>
                     </div>
+
                 `;
             }
         }
 
+
         // Logout
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            currentUser = null;
-            currentRole = null;
-            document.getElementById('dashboard').classList.remove('show');
-            document.getElementById('roleSelection').style.display = 'block';
-            document.getElementById('userName').classList.remove('show');
-            document.getElementById('logoutBtn').classList.remove('show');
-            clearMessage();
-        });
+        document
+            .getElementById('logoutBtn')
+            .addEventListener('click', () => {
+
+                currentUser = null;
+                currentRole = null;
+
+                document
+                    .getElementById('dashboard')
+                    .classList.remove('show');
+
+                document
+                    .getElementById('roleSelection')
+                    .style.display = 'block';
+
+                document
+                    .getElementById('userName')
+                    .classList.remove('show');
+
+                document
+                    .getElementById('logoutBtn')
+                    .classList.remove('show');
+
+                clearMessage();
+            });
+
 
         // Check if user is already logged in
         window.addEventListener('load', () => {
-            // Check localStorage for existing session
-            const savedUser = localStorage.getItem('voidrecords_currentUser');
+
+            const savedUser =
+                localStorage.getItem(
+                    'voidrecords_currentUser'
+                );
+
             if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                currentRole = currentUser.role;
+
+                currentUser =
+                    JSON.parse(savedUser);
+
+                currentRole =
+                    currentUser.role;
+
                 showDashboard();
             }
         });
 
+
         // Save user to localStorage when logging in
-        const originalShowDashboard = showDashboard;
+        const originalShowDashboard =
+            showDashboard;
+
         showDashboard = function() {
-            localStorage.setItem('voidrecords_currentUser', JSON.stringify(currentUser));
+
+            localStorage.setItem(
+                'voidrecords_currentUser',
+                JSON.stringify(currentUser)
+            );
+
             originalShowDashboard();
         };
+
     </script>
+
 </body>
 </html>
