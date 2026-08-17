@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VoidRecords - Login & Registration</title>
+    <title>VoidRecords</title>
 
-    <!-- VoidRecords Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <style>
+
+        /* ================================
+           RESET
+        ================================= */
+
         * {
             margin: 0;
             padding: 0;
@@ -17,16 +22,18 @@
         }
 
         :root {
-            --primary-black: #0a0a0a;
-            --secondary-black: #1a1a1a;
-            --tertiary-black: #2a2a2a;
-            --primary-white: #ffffff;
-            --secondary-white: #f5f5f5;
-            --gray-light: #e0e0e0;
-            --accent: #ffffff;
-            --success: #00d084;
-            --error: #ff4757;
-            --warning: #ffa502;
+            --black: #080808;
+            --black-2: #101010;
+            --black-3: #1a1a1a;
+            --black-4: #222222;
+
+            --white: #ffffff;
+            --gray: #cfcfcf;
+            --gray-2: #999999;
+
+            --red: #ff4757;
+            --green: #00d084;
+            --yellow: #ffa502;
         }
 
         html {
@@ -34,28 +41,65 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--primary-black);
-            color: var(--primary-white);
+            font-family:
+                "Segoe UI",
+                Tahoma,
+                Geneva,
+                Verdana,
+                sans-serif;
+
+            background: var(--black);
+            color: var(--white);
+
+            min-height: 100vh;
+
             overflow-x: hidden;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* ================================
+           ANIMATIONS
+        ================================= */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(25px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        @keyframes slideInDown {
+        @keyframes slideDown {
             from {
                 opacity: 0;
                 transform: translateY(-100%);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -63,216 +107,349 @@
         }
 
         @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.3;
+            0%,
+            100% {
+                opacity: .2;
             }
+
             50% {
                 opacity: 1;
             }
         }
 
-        /* Navbar */
+
+        /* ================================
+           STAR BACKGROUND
+        ================================= */
+
+        .stars-bg {
+            position: fixed;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+
+            width: 2px;
+            height: 2px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            animation:
+                twinkle 3s infinite ease-in-out;
+        }
+
+
+        /* ================================
+           NAVBAR
+        ================================= */
+
         .navbar {
             position: fixed;
+
             top: 0;
+            left: 0;
+
             width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+            height: 70px;
+
+            background:
+                rgba(8, 8, 8, .94);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, .1);
+
             z-index: 1000;
-            animation: slideInDown 0.6s ease-out;
+
+            animation:
+                slideDown .5s ease;
         }
 
         .nav-container {
+            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
             height: 70px;
+
+            margin: auto;
+
+            padding: 0 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            cursor: pointer;
             text-decoration: none;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
         }
 
         .logo-text {
+            color: white;
+
             font-size: 24px;
-            color: var(--primary-white);
+
+            font-weight: 800;
+
             letter-spacing: 2px;
         }
 
         .logo-records {
+            color: #aaa;
+
             font-size: 14px;
-            color: var(--gray-light);
+
+            font-weight: 600;
+
             letter-spacing: 1px;
-            border-left: 1px solid var(--accent);
+
+            border-left:
+                1px solid white;
+
             padding-left: 8px;
         }
 
         .nav-menu {
             display: flex;
-            list-style: none;
-            gap: 30px;
+
             align-items: center;
+
+            gap: 30px;
+
+            list-style: none;
         }
 
         .nav-link {
-            color: var(--gray-light);
+            color: #ccc;
+
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+
+            font-size: 14px;
+
+            transition: .25s;
         }
 
         .nav-link:hover {
-            color: var(--primary-white);
+            color: white;
         }
 
         .user-info {
             display: flex;
+
             align-items: center;
-            gap: 20px;
-        }
 
-        .logout-btn {
-            background: var(--error);
-            color: var(--primary-white);
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: none;
-        }
-
-        .logout-btn:hover {
-            background: #ff3838;
-            transform: translateY(-2px);
-        }
-
-        .logout-btn.show {
-            display: block;
+            gap: 15px;
         }
 
         .user-name {
-            color: var(--gray-light);
-            font-size: 14px;
             display: none;
+
+            color: #ccc;
+
+            font-size: 14px;
         }
 
         .user-name.show {
             display: block;
         }
 
-        /* Background Stars */
-        .stars-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+        .logout-btn {
+            display: none;
+
+            border: none;
+
+            background: var(--red);
+
+            color: white;
+
+            padding: 8px 20px;
+
+            border-radius: 6px;
+
+            font-weight: 700;
+
+            transition: .25s;
         }
 
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
+        .logout-btn.show {
+            display: block;
         }
 
-        /* Main Container */
+        .logout-btn:hover {
+            background: #ff3345;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ================================
+           MAIN
+        ================================= */
+
         .container {
+            position: relative;
+
+            z-index: 1;
+
             min-height: 100vh;
+
+            padding:
+                120px 20px 60px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
-            padding: 20px;
-            margin-top: 70px;
-            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
+
+            background:
+                radial-gradient(
+                    circle at 70% 30%,
+                    rgba(255,255,255,.025),
+                    transparent 35%
+                );
         }
 
-        /* Role Selection */
+
+        /* ================================
+           HOME / ROLE SELECTION
+        ================================= */
+
         .role-selection {
+            width: 100%;
+
+            max-width: 1000px;
+
             text-align: center;
-            animation: fadeInUp 0.8s ease-out;
+
+            animation:
+                fadeInUp .7s ease;
         }
 
         .role-selection h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: clamp(38px, 6vw, 64px);
+
+            margin-bottom: 15px;
+
             letter-spacing: 2px;
         }
 
         .role-selection p {
-            color: var(--gray-light);
+            color: var(--gray);
+
             font-size: 18px;
-            margin-bottom: 50px;
+
+            margin-bottom: 45px;
         }
 
         .role-buttons {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            margin: 0 auto;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
         }
 
         .role-btn {
-            padding: 30px;
-            background: var(--tertiary-black);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: var(--primary-white);
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            animation: fadeInUp 0.8s ease-out both;
+            min-height: 150px;
+
+            padding: 25px 15px;
+
+            color: white;
+
+            background:
+                rgba(30, 30, 30, .9);
+
+            border:
+                1px solid rgba(255,255,255,.15);
+
+            border-radius: 12px;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            transition: .3s;
+
+            animation:
+                fadeInUp .7s ease both;
         }
 
         .role-btn:nth-child(1) {
-            animation-delay: 0.1s;
+            animation-delay: .1s;
         }
 
         .role-btn:nth-child(2) {
-            animation-delay: 0.2s;
+            animation-delay: .2s;
         }
 
         .role-btn:nth-child(3) {
-            animation-delay: 0.3s;
+            animation-delay: .3s;
         }
 
         .role-btn:nth-child(4) {
-            animation-delay: 0.4s;
+            animation-delay: .4s;
         }
 
         .role-btn:hover {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
+            border-color: white;
+
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 10px 35px
+                rgba(255,255,255,.08);
         }
 
-        /* Auth Container */
+
+        /* ================================
+           AUTH
+        ================================= */
+
         .auth-container {
-            max-width: 500px;
-            background: var(--secondary-black);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 50px;
-            animation: fadeInUp 0.8s ease-out;
             display: none;
+
+            width: 100%;
+
+            max-width: 520px;
+
+            padding: 40px;
+
+            background:
+                rgba(20,20,20,.96);
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.5);
+
+            animation:
+                fadeInUp .6s ease;
         }
 
         .auth-container.show {
@@ -280,112 +457,171 @@
         }
 
         .back-btn {
-            background: none;
             border: none;
-            color: var(--gray-light);
-            cursor: pointer;
+
+            background: transparent;
+
+            color: #bbb;
+
+            margin-bottom: 25px;
+
             font-size: 14px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .back-btn:hover {
-            color: var(--primary-white);
+            color: white;
         }
 
         .auth-title {
-            font-size: 36px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+            font-size: 34px;
+
+            margin-bottom: 8px;
         }
 
         .auth-subtitle {
-            color: var(--gray-light);
-            margin-bottom: 40px;
+            color: #aaa;
+
             font-size: 14px;
+
+            margin-bottom: 30px;
         }
 
+
+        /* ================================
+           FORMS
+        ================================= */
+
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
+
             margin-bottom: 8px;
+
+            font-size: 14px;
+
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
         .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            background: var(--tertiary-black);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+            padding: 13px 14px;
+
+            color: white;
+
+            background: #242424;
+
+            border:
+                1px solid rgba(255,255,255,.15);
+
             border-radius: 8px;
-            color: var(--primary-white);
-            font-size: 14px;
-            transition: all 0.3s ease;
-            font-family: inherit;
+
+            outline: none;
+
+            transition: .25s;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+
             resize: vertical;
         }
 
         .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-white);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: white;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,255,255,.08);
         }
 
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: #777;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 12px;
-            background: var(--primary-white);
-            color: var(--primary-black);
+
+            padding: 14px;
+
+            margin-top: 10px;
+
             border: none;
+
             border-radius: 8px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
             text-transform: uppercase;
-            margin-top: 20px;
+
+            letter-spacing: 1px;
+
+            transition: .25s;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+
+            box-shadow:
+                0 10px 30px
+                rgba(255,255,255,.15);
         }
+
+
+        /* ================================
+           INFO BOX
+        ================================= */
 
         .info-box {
-            background: rgba(255, 165, 2, 0.1);
-            border: 1px solid var(--warning);
-            padding: 15px;
-            border-radius: 8px;
+            padding: 14px;
+
             margin-bottom: 20px;
-            font-size: 14px;
+
+            background:
+                rgba(255,165,2,.08);
+
+            border:
+                1px solid
+                rgba(255,165,2,.6);
+
+            border-radius: 8px;
+
             color: #ffc107;
+
+            font-size: 13px;
+
+            line-height: 1.5;
         }
 
-        /* Messages */
+
+        /* ================================
+           MESSAGES
+        ================================= */
+
         .message {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
             display: none;
-            animation: fadeInUp 0.5s ease-out;
+
+            padding: 14px;
+
+            margin-bottom: 20px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
         }
 
         .message.show {
@@ -393,23 +629,39 @@
         }
 
         .message.success {
-            background: rgba(0, 208, 132, 0.2);
-            border: 1px solid var(--success);
-            color: var(--success);
+            color: var(--green);
+
+            background:
+                rgba(0,208,132,.1);
+
+            border:
+                1px solid var(--green);
         }
 
         .message.error {
-            background: rgba(255, 71, 87, 0.2);
-            border: 1px solid var(--error);
-            color: var(--error);
+            color: var(--red);
+
+            background:
+                rgba(255,71,87,.1);
+
+            border:
+                1px solid var(--red);
         }
 
-        /* Dashboard */
+
+        /* ================================
+           DASHBOARD
+        ================================= */
+
         .dashboard {
             display: none;
-            animation: fadeInUp 0.8s ease-out;
+
             width: 100%;
-            max-width: 1400px;
+
+            max-width: 1200px;
+
+            animation:
+                fadeInUp .6s ease;
         }
 
         .dashboard.show {
@@ -418,428 +670,794 @@
 
         .dashboard-header {
             text-align: center;
-            margin-bottom: 50px;
+
+            margin-bottom: 45px;
         }
 
         .dashboard-header h1 {
-            font-size: 48px;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
+            font-size:
+                clamp(38px, 5vw, 56px);
+
+            margin-bottom: 10px;
+
+            letter-spacing: 1px;
         }
 
         .dashboard-header p {
-            color: var(--gray-light);
-            font-size: 18px;
+            color: #aaa;
+
+            font-size: 17px;
         }
 
         .dashboard-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
         }
 
         .dashboard-card {
-            background: var(--secondary-black);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.8s ease-out both;
+            min-height: 150px;
+
+            padding: 28px;
+
+            background:
+                rgba(25,25,25,.96);
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            border-radius: 11px;
+
             cursor: pointer;
+
+            transition: .3s;
+
+            animation:
+                fadeInUp .6s ease both;
         }
 
         .dashboard-card:nth-child(1) {
-            animation-delay: 0.1s;
+            animation-delay: .05s;
         }
 
         .dashboard-card:nth-child(2) {
-            animation-delay: 0.2s;
+            animation-delay: .1s;
         }
 
         .dashboard-card:nth-child(3) {
-            animation-delay: 0.3s;
+            animation-delay: .15s;
         }
 
         .dashboard-card:nth-child(4) {
-            animation-delay: 0.4s;
+            animation-delay: .2s;
         }
 
         .dashboard-card:nth-child(5) {
-            animation-delay: 0.5s;
+            animation-delay: .25s;
         }
 
         .dashboard-card:nth-child(6) {
-            animation-delay: 0.6s;
+            animation-delay: .3s;
         }
 
         .dashboard-card:hover {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
             transform: translateY(-5px);
+
+            border-color: white;
+
+            box-shadow:
+                0 10px 35px
+                rgba(255,255,255,.07);
         }
 
         .dashboard-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
+            font-size: 22px;
+
+            margin-bottom: 12px;
         }
 
         .dashboard-card p {
-            color: var(--gray-light);
-            margin-bottom: 0;
+            color: #aaa;
+
             line-height: 1.6;
+
+            font-size: 14px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .auth-container {
-                padding: 30px;
-                max-width: 100%;
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            .role-buttons {
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
-            .auth-title {
-                font-size: 28px;
+            .dashboard-content {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .nav-menu {
+                display: none;
+            }
+
+            .user-name {
+                display: none !important;
             }
 
             .role-buttons {
                 grid-template-columns: 1fr;
             }
 
-            .nav-menu {
-                display: none;
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-container {
+                padding: 28px 20px;
+            }
+
+            .dashboard-card {
+                min-height: auto;
             }
         }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- Stars Background -->
-    <div class="stars-bg"></div>
 
-    <!-- Navbar -->
+    <!-- =====================================
+         STARS
+    ====================================== -->
+
+    <div class="stars-bg" id="starsBg"></div>
+
+
+    <!-- =====================================
+         NAVBAR
+    ====================================== -->
+
     <nav class="navbar">
+
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-text">VOID</span>
-                <span class="logo-records">RECORDS</span>
+
+            <a href="#" class="logo" onclick="goHome(); return false;">
+
+                <span class="logo-text">
+                    VOID
+                </span>
+
+                <span class="logo-records">
+                    RECORDS
+                </span>
+
             </a>
 
+
             <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="index.html#artists" class="nav-link">Artists</a></li>
-                <li><a href="index.html#releases" class="nav-link">Releases</a></li>
+
+                <li>
+                    <a href="#" class="nav-link"
+                       onclick="goHome(); return false;">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#artists" class="nav-link">
+                        Artists
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#releases" class="nav-link">
+                        Releases
+                    </a>
+                </li>
+
             </ul>
 
+
             <div class="user-info">
-                <span class="user-name" id="userName"></span>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
+
+                <span
+                    class="user-name"
+                    id="userName">
+                </span>
+
+                <button
+                    class="logout-btn"
+                    id="logoutBtn">
+                    Logout
+                </button>
+
             </div>
+
         </div>
+
     </nav>
 
-    <!-- Main Container -->
-    <div class="container">
 
-        <!-- Role Selection -->
-        <div class="role-selection" id="roleSelection">
-            <h1>Select Your Role</h1>
-            <p>Choose how you want to connect with VoidRecords</p>
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="container">
+
+
+        <!-- =================================
+             ROLE SELECTION
+        ================================== -->
+
+        <section
+            class="role-selection"
+            id="roleSelection">
+
+            <h1>
+                Select Your Role
+            </h1>
+
+            <p>
+                Choose how you want to connect with VoidRecords
+            </p>
+
 
             <div class="role-buttons">
-                <button class="role-btn" onclick="selectRole('artist')">
-                    🎤 Artist Apply
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('artist')">
+
+                    🎤
+                    <br><br>
+
+                    Artist Apply
+
                 </button>
 
-                <button class="role-btn" onclick="selectRole('ar')">
-                    🎧 A&amp;R Manager
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('ar')">
+
+                    🎧
+                    <br><br>
+
+                    A&amp;R Manager
+
                 </button>
 
-                <button class="role-btn" onclick="selectRole('owner')">
-                    👑 Owner
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('owner')">
+
+                    👑
+                    <br><br>
+
+                    Owner
+
                 </button>
 
-                <button class="role-btn" onclick="selectRole('artist-login')">
-                    🎵 Artist Login
+
+                <button
+                    class="role-btn"
+                    onclick="selectRole('artist-login')">
+
+                    🎵
+                    <br><br>
+
+                    Artist Login
+
                 </button>
+
             </div>
-        </div>
 
-        <!-- Auth Forms -->
-        <div class="auth-container" id="authContainer">
+        </section>
 
-            <button class="back-btn" onclick="goBack()">← Back</button>
 
-            <div id="messageContainer"></div>
+        <!-- =================================
+             AUTH CONTAINER
+        ================================== -->
 
-            <!-- Artist Application Form -->
-            <div id="artistApplication" style="display: none;">
+        <section
+            class="auth-container"
+            id="authContainer">
 
-                <h2 class="auth-title">Join as Artist</h2>
+
+            <button
+                class="back-btn"
+                onclick="goBack()">
+
+                ← Back
+
+            </button>
+
+
+            <div
+                id="messageContainer">
+            </div>
+
+
+            <!-- =============================
+                 ARTIST APPLICATION
+            ============================== -->
+
+            <div
+                id="artistApplication"
+                style="display:none;">
+
+                <h2 class="auth-title">
+                    Join as Artist
+                </h2>
+
                 <p class="auth-subtitle">
                     Submit your application to VoidRecords
                 </p>
 
+
                 <div class="info-box">
-                    ℹ️ Your application will be reviewed by our team.
-                    You'll receive login credentials once approved.
+
+                    ℹ️ Your application will be reviewed
+                    by our team. You'll receive login
+                    credentials once approved.
+
                 </div>
 
-                <form onsubmit="handleArtistApplication(event)">
+
+                <form
+                    onsubmit="handleArtistApplication(event)">
+
 
                     <div class="form-group">
-                        <label for="artistName">Full Name</label>
+
+                        <label>
+                            Full Name
+                        </label>
+
                         <input
                             type="text"
                             id="artistName"
                             placeholder="Your full name"
-                            required
-                        >
+                            required>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="artistEmail">Email</label>
+
+                        <label>
+                            Email
+                        </label>
+
                         <input
                             type="email"
                             id="artistEmail"
                             placeholder="Your email"
-                            required
-                        >
+                            required>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="artistPhone">Phone Number</label>
+
+                        <label>
+                            Phone Number
+                        </label>
+
                         <input
                             type="tel"
                             id="artistPhone"
                             placeholder="Your phone number"
-                            required
-                        >
+                            required>
+
                     </div>
 
-                    <div class="form-group">
-                        <label for="artistGenre">Music Genre</label>
 
-                        <select id="artistGenre" required>
-                            <option value="">Select your genre</option>
-                            <option value="hip-hop">Hip-Hop</option>
-                            <option value="electronic">Electronic</option>
-                            <option value="ambient">Ambient</option>
-                            <option value="indie">Indie</option>
-                            <option value="pop">Pop</option>
-                            <option value="r-b">R&amp;B</option>
-                            <option value="other">Other</option>
+                    <div class="form-group">
+
+                        <label>
+                            Music Genre
+                        </label>
+
+                        <select
+                            id="artistGenre"
+                            required>
+
+                            <option value="">
+                                Select your genre
+                            </option>
+
+                            <option value="hip-hop">
+                                Hip-Hop
+                            </option>
+
+                            <option value="electronic">
+                                Electronic
+                            </option>
+
+                            <option value="ambient">
+                                Ambient
+                            </option>
+
+                            <option value="indie">
+                                Indie
+                            </option>
+
+                            <option value="pop">
+                                Pop
+                            </option>
+
+                            <option value="r-b">
+                                R&amp;B
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
                         </select>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="artistBio">Bio / About You</label>
+
+                        <label>
+                            Bio / About You
+                        </label>
 
                         <textarea
                             id="artistBio"
                             placeholder="Tell us about yourself and your music"
-                            rows="4"
-                            required
-                        ></textarea>
+                            required>
+                        </textarea>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="artistLinks">
-                            Links (Spotify, SoundCloud, etc.)
+
+                        <label>
+                            Music Link
                         </label>
 
                         <input
                             type="url"
                             id="artistLinks"
                             placeholder="https://spotify.com/..."
-                            required
-                        >
+                            required>
+
                     </div>
 
-                    <button type="submit" class="submit-btn">
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+
                         Submit Application
+
                     </button>
 
                 </form>
+
             </div>
 
-            <!-- A&R Login Form -->
-            <div id="arLoginForm" style="display: none;">
 
-                <h2 class="auth-title">A&amp;R Manager Login</h2>
+            <!-- =============================
+                 A&R LOGIN
+            ============================== -->
+
+            <div
+                id="arLoginForm"
+                style="display:none;">
+
+                <h2 class="auth-title">
+                    A&amp;R Manager Login
+                </h2>
 
                 <p class="auth-subtitle">
                     Sign in to your account
                 </p>
 
-                <form onsubmit="handleARLogin(event)">
+
+                <form
+                    onsubmit="handleARLogin(event)">
 
                     <div class="form-group">
-                        <label for="arLoginEmail">Email</label>
+
+                        <label>
+                            Email
+                        </label>
 
                         <input
                             type="email"
                             id="arLoginEmail"
                             placeholder="Enter your email"
-                            required
-                        >
+                            required>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="arLoginPassword">Password</label>
+
+                        <label>
+                            Password
+                        </label>
 
                         <input
                             type="password"
                             id="arLoginPassword"
                             placeholder="Enter your password"
-                            required
-                        >
+                            required>
+
                     </div>
 
-                    <button type="submit" class="submit-btn">
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+
                         Login
+
                     </button>
 
                 </form>
 
-                <div style="text-align: center; margin-top: 20px; color: var(--gray-light); font-size: 14px;">
-                    Don't have an account? Contact the owner to create one.
-                </div>
+
+                <p
+                    style="
+                        text-align:center;
+                        margin-top:20px;
+                        color:#888;
+                        font-size:13px;
+                    ">
+
+                    Don't have an account?
+                    Contact the owner.
+
+                </p>
 
             </div>
 
-            <!-- Owner Login Form -->
-            <div id="ownerLoginForm" style="display: none;">
 
-                <h2 class="auth-title">Owner Login</h2>
+            <!-- =============================
+                 OWNER LOGIN
+            ============================== -->
+
+            <div
+                id="ownerLoginForm"
+                style="display:none;">
+
+                <h2 class="auth-title">
+                    Owner Login
+                </h2>
 
                 <p class="auth-subtitle">
                     Sign in to manage VoidRecords
                 </p>
 
-                <form onsubmit="handleOwnerLogin(event)">
+
+                <form
+                    onsubmit="handleOwnerLogin(event)">
 
                     <div class="form-group">
-                        <label for="ownerLoginEmail">Email</label>
+
+                        <label>
+                            Email
+                        </label>
 
                         <input
                             type="email"
                             id="ownerLoginEmail"
                             placeholder="Enter your email"
-                            required
-                        >
+                            required>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="ownerLoginPassword">Password</label>
+
+                        <label>
+                            Password
+                        </label>
 
                         <input
                             type="password"
                             id="ownerLoginPassword"
                             placeholder="Enter your password"
-                            required
-                        >
+                            required>
+
                     </div>
 
-                    <button type="submit" class="submit-btn">
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+
                         Login
+
                     </button>
 
                 </form>
 
             </div>
 
-            <!-- Artist Login Form -->
-            <div id="artistLoginForm" style="display: none;">
 
-                <h2 class="auth-title">Artist Login</h2>
+            <!-- =============================
+                 ARTIST LOGIN
+            ============================== -->
+
+            <div
+                id="artistLoginForm"
+                style="display:none;">
+
+                <h2 class="auth-title">
+                    Artist Login
+                </h2>
 
                 <p class="auth-subtitle">
                     Sign in to your account
                 </p>
 
+
                 <div class="info-box">
-                    ℹ️ Login credentials are provided after your application is approved by the team.
+
+                    ℹ️ Login credentials are provided
+                    after your application is approved.
+
                 </div>
 
-                <form onsubmit="handleArtistLogin(event)">
+
+                <form
+                    onsubmit="handleArtistLogin(event)">
 
                     <div class="form-group">
-                        <label for="artistLoginEmail">Email</label>
+
+                        <label>
+                            Email
+                        </label>
 
                         <input
                             type="email"
                             id="artistLoginEmail"
                             placeholder="Enter your email"
-                            required
-                        >
+                            required>
+
                     </div>
 
+
                     <div class="form-group">
-                        <label for="artistLoginPassword">Password</label>
+
+                        <label>
+                            Password
+                        </label>
 
                         <input
                             type="password"
                             id="artistLoginPassword"
                             placeholder="Enter your password"
-                            required
-                        >
+                            required>
+
                     </div>
 
-                    <button type="submit" class="submit-btn">
+
+                    <button
+                        type="submit"
+                        class="submit-btn">
+
                         Login
+
                     </button>
 
                 </form>
 
             </div>
 
-        </div>
+        </section>
 
-        <!-- Dashboard -->
-        <div class="dashboard" id="dashboard">
+
+        <!-- =================================
+             DASHBOARD
+        ================================== -->
+
+        <section
+            class="dashboard"
+            id="dashboard">
+
 
             <div class="dashboard-header">
-                <h1 id="dashboardTitle">Dashboard</h1>
+
+                <h1 id="dashboardTitle">
+                    Dashboard
+                </h1>
+
                 <p id="dashboardSubtitle">
                     Welcome to your VoidRecords portal
                 </p>
+
             </div>
 
-            <div class="dashboard-content" id="dashboardContent">
-                <!-- Content loaded dynamically -->
+
+            <div
+                class="dashboard-content"
+                id="dashboardContent">
             </div>
 
-        </div>
+        </section>
 
-    </div>
+
+    </main>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
 
     <script>
 
-        // Initialize app
+
+        /* =================================
+           SETTINGS
+        ================================= */
+
         let currentRole = null;
         let currentUser = null;
 
-        const OWNER_EMAIL = 'voidrecords287@gmail.com';
-        const OWNER_PASSWORD = 'gamerskory2210';
+
+        /*
+         * TEST OWNER LOGIN
+         *
+         * IMPORTANT:
+         * This is NOT secure for production.
+         * Anyone who can inspect this HTML can see
+         * these credentials.
+         */
+
+        const OWNER_EMAIL =
+            "voidrecords287@gmail.com";
+
+        const OWNER_PASSWORD =
+            "gamerskory2210";
 
 
-        // Create stars background
+        /* =================================
+           STARS
+        ================================= */
+
         function createStars() {
 
-            const starsBg = document.querySelector('.stars-bg');
+            const starsBg =
+                document.getElementById("starsBg");
 
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 70; i++) {
 
-                const star = document.createElement('div');
+                const star =
+                    document.createElement("div");
 
-                star.className = 'star';
+                star.className = "star";
 
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
+                star.style.left =
+                    Math.random() * 100 + "%";
+
+                star.style.top =
+                    Math.random() * 100 + "%";
 
                 star.style.animationDelay =
-                    Math.random() * 3 + 's';
+                    Math.random() * 3 + "s";
 
                 starsBg.appendChild(star);
             }
@@ -848,152 +1466,308 @@
         createStars();
 
 
-        // Role Selection
+        /* =================================
+           SELECT ROLE
+        ================================= */
+
         function selectRole(role) {
 
             currentRole = role;
 
-            document.getElementById('roleSelection').style.display = 'none';
+            /*
+             * IMPORTANT FIX:
+             * Hide the role selection before
+             * displaying authentication.
+             */
 
-            document.getElementById('authContainer')
-                .classList.add('show');
-
-
-            // Hide all forms
-            document.getElementById('artistApplication')
-                .style.display = 'none';
-
-            document.getElementById('arLoginForm')
-                .style.display = 'none';
-
-            document.getElementById('ownerLoginForm')
-                .style.display = 'none';
-
-            document.getElementById('artistLoginForm')
-                .style.display = 'none';
+            document
+                .getElementById("roleSelection")
+                .style.display = "none";
 
 
-            // Show appropriate form
-            if (role === 'artist') {
+            document
+                .getElementById("dashboard")
+                .classList.remove("show");
 
-                document.getElementById('artistApplication')
-                    .style.display = 'block';
 
-            } else if (role === 'ar') {
+            document
+                .getElementById("authContainer")
+                .classList.add("show");
 
-                document.getElementById('arLoginForm')
-                    .style.display = 'block';
 
-            } else if (role === 'owner') {
+            hideAllForms();
 
-                document.getElementById('ownerLoginForm')
-                    .style.display = 'block';
 
-            } else if (role === 'artist-login') {
+            if (role === "artist") {
 
-                document.getElementById('artistLoginForm')
-                    .style.display = 'block';
+                document
+                    .getElementById("artistApplication")
+                    .style.display = "block";
+
             }
+
+            else if (role === "ar") {
+
+                document
+                    .getElementById("arLoginForm")
+                    .style.display = "block";
+
+            }
+
+            else if (role === "owner") {
+
+                document
+                    .getElementById("ownerLoginForm")
+                    .style.display = "block";
+
+            }
+
+            else if (role === "artist-login") {
+
+                document
+                    .getElementById("artistLoginForm")
+                    .style.display = "block";
+
+            }
+
 
             clearMessage();
         }
 
 
-        // Go Back
+        /* =================================
+           HIDE FORMS
+        ================================= */
+
+        function hideAllForms() {
+
+            document
+                .getElementById("artistApplication")
+                .style.display = "none";
+
+            document
+                .getElementById("arLoginForm")
+                .style.display = "none";
+
+            document
+                .getElementById("ownerLoginForm")
+                .style.display = "none";
+
+            document
+                .getElementById("artistLoginForm")
+                .style.display = "none";
+        }
+
+
+        /* =================================
+           GO BACK
+        ================================= */
+
         function goBack() {
 
             currentRole = null;
 
-            document.getElementById('roleSelection')
-                .style.display = 'block';
+            document
+                .getElementById("authContainer")
+                .classList.remove("show");
 
-            document.getElementById('authContainer')
-                .classList.remove('show');
+            document
+                .getElementById("dashboard")
+                .classList.remove("show");
+
+            document
+                .getElementById("roleSelection")
+                .style.display = "block";
+
+            hideAllForms();
 
             clearForms();
+
             clearMessage();
         }
 
 
-        // Show Message
+        /* =================================
+           HOME
+        ================================= */
+
+        function goHome() {
+
+            /*
+             * If logged in, keep the dashboard.
+             * Otherwise show role selection.
+             */
+
+            if (currentUser) {
+
+                showDashboard();
+
+                return;
+            }
+
+
+            document
+                .getElementById("dashboard")
+                .classList.remove("show");
+
+            document
+                .getElementById("authContainer")
+                .classList.remove("show");
+
+            document
+                .getElementById("roleSelection")
+                .style.display = "block";
+
+            currentRole = null;
+
+            clearMessage();
+        }
+
+
+        /* =================================
+           MESSAGES
+        ================================= */
+
         function showMessage(text, type) {
 
             const container =
-                document.getElementById('messageContainer');
+                document.getElementById(
+                    "messageContainer"
+                );
 
-            container.innerHTML =
-                `<div class="message ${type} show">${text}</div>`;
+            container.innerHTML = `
+                <div class="message ${type} show">
+                    ${text}
+                </div>
+            `;
 
-            if (type === 'success') {
+
+            if (type === "success") {
 
                 setTimeout(() => {
-                    container.innerHTML = '';
-                }, 3000);
+
+                    container.innerHTML = "";
+
+                }, 3500);
             }
         }
 
 
-        // Clear Message
         function clearMessage() {
 
-            document.getElementById('messageContainer')
-                .innerHTML = '';
+            document
+                .getElementById("messageContainer")
+                .innerHTML = "";
         }
 
 
-        // Clear Forms
+        /* =================================
+           CLEAR FORMS
+        ================================= */
+
         function clearForms() {
 
-            document.querySelectorAll('input, textarea')
-                .forEach(input => input.value = '');
+            document
+                .querySelectorAll(
+                    "#authContainer input, #authContainer textarea"
+                )
+                .forEach(input => {
+
+                    input.value = "";
+
+                });
+
+
+            document
+                .querySelectorAll(
+                    "#authContainer select"
+                )
+                .forEach(select => {
+
+                    select.selectedIndex = 0;
+
+                });
         }
 
 
-        // Handle Artist Application
+        /* =================================
+           ARTIST APPLICATION
+        ================================= */
+
         function handleArtistApplication(event) {
 
             event.preventDefault();
 
+
             const name =
-                document.getElementById('artistName').value;
+                document
+                    .getElementById("artistName")
+                    .value
+                    .trim();
+
 
             const email =
-                document.getElementById('artistEmail').value;
+                document
+                    .getElementById("artistEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
 
             const phone =
-                document.getElementById('artistPhone').value;
+                document
+                    .getElementById("artistPhone")
+                    .value
+                    .trim();
+
 
             const genre =
-                document.getElementById('artistGenre').value;
+                document
+                    .getElementById("artistGenre")
+                    .value;
+
 
             const bio =
-                document.getElementById('artistBio').value;
+                document
+                    .getElementById("artistBio")
+                    .value
+                    .trim();
+
 
             const links =
-                document.getElementById('artistLinks').value;
+                document
+                    .getElementById("artistLinks")
+                    .value
+                    .trim();
 
 
             const applications =
                 JSON.parse(
                     localStorage.getItem(
-                        'voidrecords_applications'
-                    ) || '[]'
+                        "voidrecords_applications"
+                    ) || "[]"
                 );
 
 
-            // Check if email already applied
-            if (applications.some(app => app.email === email)) {
+            const alreadyApplied =
+                applications.some(
+                    app =>
+                        app.email === email
+                );
+
+
+            if (alreadyApplied) {
 
                 showMessage(
-                    '✗ You have already submitted an application. Please wait for approval.',
-                    'error'
+                    "✗ You have already submitted an application.",
+                    "error"
                 );
 
                 return;
             }
 
 
-            applications.push({
+            const application = {
 
                 id: Date.now(),
 
@@ -1009,153 +1783,127 @@
 
                 links: links,
 
-                role: 'artist',
+                role: "artist",
 
-                status: 'pending',
+                status: "pending",
 
                 appliedDate:
                     new Date().toLocaleString()
-            });
+            };
+
+
+            applications.push(application);
 
 
             localStorage.setItem(
-                'voidrecords_applications',
+                "voidrecords_applications",
                 JSON.stringify(applications)
             );
 
 
             showMessage(
-                '✓ Application submitted successfully! You will be notified once reviewed.',
-                'success'
+                "✓ Application submitted successfully!",
+                "success"
             );
 
 
             setTimeout(() => {
+
                 goBack();
+
             }, 2000);
         }
 
 
-        // Handle A&R Login
-        function handleARLogin(event) {
+        /* =================================
+           OWNER LOGIN
+        ================================= */
 
-            event.preventDefault();
-
-            const email =
-                document.getElementById('arLoginEmail').value;
-
-            const password =
-                document.getElementById('arLoginPassword').value;
-
-
-            const users =
-                JSON.parse(
-                    localStorage.getItem(
-                        'voidrecords_users'
-                    ) || '{}'
-                );
-
-
-            const userKey = 'ar_' + email;
-
-
-            if (
-                users[userKey] &&
-                users[userKey].password === password
-            ) {
-
-                currentUser = {
-
-                    name: users[userKey].name,
-
-                    email: email,
-
-                    role: 'ar'
-                };
-
-
-                showDashboard();
-
-                showMessage(
-                    '✓ Login successful!',
-                    'success'
-                );
-
-            } else {
-
-                showMessage(
-                    '✗ Invalid email or password.',
-                    'error'
-                );
-            }
-        }
-
-
-        // Handle Owner Login
         function handleOwnerLogin(event) {
 
             event.preventDefault();
 
+
             const email =
-                document.getElementById('ownerLoginEmail').value;
+                document
+                    .getElementById("ownerLoginEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
 
             const password =
-                document.getElementById('ownerLoginPassword').value;
+                document
+                    .getElementById("ownerLoginPassword")
+                    .value;
 
 
             if (
-                email === OWNER_EMAIL &&
+                email === OWNER_EMAIL.toLowerCase() &&
                 password === OWNER_PASSWORD
             ) {
 
                 currentUser = {
 
-                    name: 'VoidRecords Owner',
+                    name: "VoidRecords Owner",
 
                     email: email,
 
-                    role: 'owner'
+                    role: "owner"
+
                 };
+
+
+                saveSession();
 
 
                 showDashboard();
 
-                showMessage(
-                    '✓ Welcome back, Owner!',
-                    'success'
-                );
+            }
 
-            } else {
+            else {
 
                 showMessage(
-                    '✗ Invalid owner credentials.',
-                    'error'
+                    "✗ Invalid owner credentials.",
+                    "error"
                 );
             }
         }
 
 
-        // Handle Artist Login
-        function handleArtistLogin(event) {
+        /* =================================
+           A&R LOGIN
+        ================================= */
+
+        function handleARLogin(event) {
 
             event.preventDefault();
 
+
             const email =
-                document.getElementById('artistLoginEmail').value;
+                document
+                    .getElementById("arLoginEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
 
             const password =
-                document.getElementById('artistLoginPassword').value;
+                document
+                    .getElementById("arLoginPassword")
+                    .value;
 
 
             const users =
                 JSON.parse(
                     localStorage.getItem(
-                        'voidrecords_users'
-                    ) || '{}'
+                        "voidrecords_users"
+                    ) || "{}"
                 );
 
 
-            const userKey = 'artist_' + email;
+            const userKey =
+                "ar_" + email;
 
 
             if (
@@ -1165,359 +1913,626 @@
 
                 currentUser = {
 
-                    name: users[userKey].name,
+                    name:
+                        users[userKey].name,
 
                     email: email,
 
-                    role: 'artist'
+                    role: "ar"
+
                 };
+
+
+                saveSession();
 
 
                 showDashboard();
 
-                showMessage(
-                    '✓ Login successful!',
-                    'success'
-                );
+            }
 
-            } else {
+            else {
 
                 showMessage(
-                    '✗ Invalid email or password.',
-                    'error'
+                    "✗ Invalid email or password.",
+                    "error"
                 );
             }
         }
 
 
-        // Show Dashboard
-        function showDashboard() {
+        /* =================================
+           ARTIST LOGIN
+        ================================= */
 
-            document.getElementById('authContainer')
-                .classList.remove('show');
+        function handleArtistLogin(event) {
 
-            document.getElementById('dashboard')
-                .classList.add('show');
-
-
-            document.getElementById('userName')
-                .textContent =
-                `Welcome, ${currentUser.name}`;
-
-
-            document.getElementById('userName')
-                .classList.add('show');
-
-
-            document.getElementById('logoutBtn')
-                .classList.add('show');
-
-
-            const title =
-                document.getElementById('dashboardTitle');
-
-            const subtitle =
-                document.getElementById('dashboardSubtitle');
-
-            const content =
-                document.getElementById('dashboardContent');
-
-
-            if (currentUser.role === 'owner') {
-
-                title.textContent =
-                    'Owner Dashboard';
-
-                subtitle.textContent =
-                    'Manage your record label';
-
-
-                content.innerHTML = `
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View and manage artist applications')">
-
-                        <h3>📋 Pending Applications</h3>
-
-                        <p>
-                            Review artist applications and approve/reject them.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="openCreateARManager()">
-
-                        <h3>👥 Create A&amp;R Manager</h3>
-
-                        <p>
-                            Add new A&amp;R managers to the team.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Manage all approved artists')">
-
-                        <h3>🎤 Manage Artists</h3>
-
-                        <p>
-                            View and manage all approved artists.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Upload and manage releases')">
-
-                        <h3>💿 Manage Releases</h3>
-
-                        <p>
-                            Upload and manage music releases.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View earnings and payments')">
-
-                        <h3>💰 Payments</h3>
-
-                        <p>
-                            View earnings and payment history.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Configure label settings')">
-
-                        <h3>⚙️ Settings</h3>
-
-                        <p>
-                            Configure label settings and preferences.
-                        </p>
-
-                    </div>
-                `;
-
-            } else if (currentUser.role === 'ar') {
-
-                title.textContent =
-                    'A&R Manager Dashboard';
-
-                subtitle.textContent =
-                    'Scout and manage talent';
-
-
-                content.innerHTML = `
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View your artist roster')">
-
-                        <h3>🎤 Artist Roster</h3>
-
-                        <p>
-                            View and manage your artist roster.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Scout new artists')">
-
-                        <h3>📝 Scout Artists</h3>
-
-                        <p>
-                            Find and reach out to new talent.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Monitor releases')">
-
-                        <h3>💿 Track Releases</h3>
-
-                        <p>
-                            Monitor upcoming releases and projects.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View analytics')">
-
-                        <h3>📊 Performance</h3>
-
-                        <p>
-                            View performance metrics of your artists.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Message artists')">
-
-                        <h3>📧 Communication</h3>
-
-                        <p>
-                            Message artists and label management.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Update your profile')">
-
-                        <h3>👤 My Profile</h3>
-
-                        <p>
-                            Update your profile information.
-                        </p>
-
-                    </div>
-                `;
-
-            } else if (currentUser.role === 'artist') {
-
-                title.textContent =
-                    'Artist Dashboard';
-
-                subtitle.textContent =
-                    'Manage your music and career';
-
-
-                content.innerHTML = `
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View your releases')">
-
-                        <h3>💿 My Releases</h3>
-
-                        <p>
-                            Upload and manage your music releases.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View your analytics')">
-
-                        <h3>📊 Analytics</h3>
-
-                        <p>
-                            Track your streams, listeners, and revenue.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Upload music')">
-
-                        <h3>🎵 Upload Music</h3>
-
-                        <p>
-                            Upload new tracks and albums.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Message your A&R')">
-
-                        <h3>💬 Messages</h3>
-
-                        <p>
-                            Communicate with your A&amp;R manager.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: Update your profile')">
-
-                        <h3>👤 My Profile</h3>
-
-                        <p>
-                            Update your artist profile and bio.
-                        </p>
-
-                    </div>
-
-
-                    <div class="dashboard-card"
-                        onclick="alert('Feature: View your earnings')">
-
-                        <h3>💰 Earnings</h3>
-
-                        <p>
-                            View your earnings and payments.
-                        </p>
-
-                    </div>
-                `;
-            }
-
-
-            // Save user session
-            localStorage.setItem(
-                'voidrecords_currentUser',
-                JSON.stringify(currentUser)
-            );
-        }
-
-
-        // Create A&R Manager
-        function openCreateARManager() {
-
-            const name =
-                prompt('Enter A&R Manager full name:');
-
-            if (!name) return;
+            event.preventDefault();
 
 
             const email =
-                prompt('Enter A&R Manager email:');
-
-            if (!email) return;
+                document
+                    .getElementById("artistLoginEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
 
 
             const password =
-                prompt('Enter A&R Manager password:');
-
-            if (!password) return;
+                document
+                    .getElementById("artistLoginPassword")
+                    .value;
 
 
             const users =
                 JSON.parse(
                     localStorage.getItem(
-                        'voidrecords_users'
-                    ) || '{}'
+                        "voidrecords_users"
+                    ) || "{}"
                 );
 
 
-            const userKey = 'ar_' + email;
+            const userKey =
+                "artist_" + email;
+
+
+            if (
+                users[userKey] &&
+                users[userKey].password === password
+            ) {
+
+                currentUser = {
+
+                    name:
+                        users[userKey].name,
+
+                    email: email,
+
+                    role: "artist"
+
+                };
+
+
+                saveSession();
+
+
+                showDashboard();
+
+            }
+
+            else {
+
+                showMessage(
+                    "✗ Invalid email or password.",
+                    "error"
+                );
+            }
+        }
+
+
+        /* =================================
+           SAVE SESSION
+        ================================= */
+
+        function saveSession() {
+
+            localStorage.setItem(
+                "voidrecords_currentUser",
+                JSON.stringify(currentUser)
+            );
+        }
+
+
+        /* =================================
+           SHOW DASHBOARD
+        ================================= */
+
+        function showDashboard() {
+
+            /*
+             * ==================================
+             * THIS IS THE IMPORTANT FIX
+             * ==================================
+             *
+             * The old code did NOT hide
+             * roleSelection.
+             *
+             * That caused:
+             *
+             * Select Your Role
+             *
+             * AND
+             *
+             * Owner Dashboard
+             *
+             * to appear at the same time.
+             */
+
+            document
+                .getElementById("roleSelection")
+                .style.display = "none";
+
+
+            document
+                .getElementById("authContainer")
+                .classList.remove("show");
+
+
+            document
+                .getElementById("dashboard")
+                .classList.add("show");
+
+
+            /*
+             * USER NAVIGATION
+             */
+
+            document
+                .getElementById("userName")
+                .textContent =
+                `Welcome, ${currentUser.name}`;
+
+
+            document
+                .getElementById("userName")
+                .classList.add("show");
+
+
+            document
+                .getElementById("logoutBtn")
+                .classList.add("show");
+
+
+            const title =
+                document.getElementById(
+                    "dashboardTitle"
+                );
+
+
+            const subtitle =
+                document.getElementById(
+                    "dashboardSubtitle"
+                );
+
+
+            const content =
+                document.getElementById(
+                    "dashboardContent"
+                );
+
+
+            /* =============================
+               OWNER DASHBOARD
+            ============================== */
+
+            if (currentUser.role === "owner") {
+
+                title.textContent =
+                    "Owner Dashboard";
+
+                subtitle.textContent =
+                    "Manage your record label";
+
+
+                content.innerHTML = `
+
+                    <div
+                        class="dashboard-card"
+                        onclick="openApplications()">
+
+                        <h3>
+                            📋 Pending Applications
+                        </h3>
+
+                        <p>
+                            Review artist applications
+                            and approve or reject them.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="dashboard-card"
+                        onclick="openCreateARManager()">
+
+                        <h3>
+                            👥 Create A&amp;R Manager
+                        </h3>
+
+                        <p>
+                            Add new A&amp;R managers
+                            to the team.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="dashboard-card"
+                        onclick="alert('Artist management is ready to connect to your database.')">
+
+                        <h3>
+                            🎤 Manage Artists
+                        </h3>
+
+                        <p>
+                            View and manage all
+                            approved artists.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="dashboard-card"
+                        onclick="alert('Release management is ready to connect.')">
+
+                        <h3>
+                            💿 Manage Releases
+                        </h3>
+
+                        <p>
+                            Upload and manage
+                            music releases.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="dashboard-card"
+                        onclick="alert('Payments section is ready to connect.')">
+
+                        <h3>
+                            💰 Payments
+                        </h3>
+
+                        <p>
+                            View earnings and
+                            payment history.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="dashboard-card"
+                        onclick="alert('Settings section is ready to connect.')">
+
+                        <h3>
+                            ⚙️ Settings
+                        </h3>
+
+                        <p>
+                            Configure label settings
+                            and preferences.
+                        </p>
+
+                    </div>
+
+                `;
+            }
+
+
+            /* =============================
+               A&R DASHBOARD
+            ============================== */
+
+            else if (currentUser.role === "ar") {
+
+                title.textContent =
+                    "A&R Manager Dashboard";
+
+                subtitle.textContent =
+                    "Scout and manage talent";
+
+
+                content.innerHTML = `
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            🎤 Artist Roster
+                        </h3>
+
+                        <p>
+                            View and manage
+                            your artist roster.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            📝 Scout Artists
+                        </h3>
+
+                        <p>
+                            Find and reach out
+                            to new talent.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            💿 Track Releases
+                        </h3>
+
+                        <p>
+                            Monitor upcoming
+                            releases and projects.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            📊 Performance
+                        </h3>
+
+                        <p>
+                            View performance
+                            metrics of your artists.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            📧 Communication
+                        </h3>
+
+                        <p>
+                            Message artists
+                            and label management.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            👤 My Profile
+                        </h3>
+
+                        <p>
+                            Update your
+                            profile information.
+                        </p>
+
+                    </div>
+
+                `;
+            }
+
+
+            /* =============================
+               ARTIST DASHBOARD
+            ============================== */
+
+            else if (currentUser.role === "artist") {
+
+                title.textContent =
+                    "Artist Dashboard";
+
+                subtitle.textContent =
+                    "Manage your music and career";
+
+
+                content.innerHTML = `
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            💿 My Releases
+                        </h3>
+
+                        <p>
+                            Upload and manage
+                            your music releases.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            📊 Analytics
+                        </h3>
+
+                        <p>
+                            Track streams,
+                            listeners and revenue.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            🎵 Upload Music
+                        </h3>
+
+                        <p>
+                            Upload new tracks
+                            and albums.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            💬 Messages
+                        </h3>
+
+                        <p>
+                            Communicate with
+                            your A&amp;R manager.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            👤 My Profile
+                        </h3>
+
+                        <p>
+                            Update your artist
+                            profile and bio.
+                        </p>
+
+                    </div>
+
+
+                    <div class="dashboard-card">
+
+                        <h3>
+                            💰 Earnings
+                        </h3>
+
+                        <p>
+                            View your earnings
+                            and payments.
+                        </p>
+
+                    </div>
+
+                `;
+            }
+        }
+
+
+        /* =================================
+           VIEW APPLICATIONS
+        ================================= */
+
+        function openApplications() {
+
+            const applications =
+                JSON.parse(
+                    localStorage.getItem(
+                        "voidrecords_applications"
+                    ) || "[]"
+                );
+
+
+            if (applications.length === 0) {
+
+                alert(
+                    "There are currently no artist applications."
+                );
+
+                return;
+            }
+
+
+            let text =
+                "ARTIST APPLICATIONS\n\n";
+
+
+            applications.forEach(
+                (app, index) => {
+
+                    text +=
+                        `${index + 1}. ${app.name}\n`;
+
+                    text +=
+                        `Email: ${app.email}\n`;
+
+                    text +=
+                        `Genre: ${app.genre}\n`;
+
+                    text +=
+                        `Status: ${app.status}\n`;
+
+                    text +=
+                        `Applied: ${app.appliedDate}\n\n`;
+                }
+            );
+
+
+            alert(text);
+        }
+
+
+        /* =================================
+           CREATE A&R MANAGER
+        ================================= */
+
+        function openCreateARManager() {
+
+            const name =
+                prompt(
+                    "Enter A&R Manager full name:"
+                );
+
+
+            if (!name) {
+                return;
+            }
+
+
+            const email =
+                prompt(
+                    "Enter A&R Manager email:"
+                );
+
+
+            if (!email) {
+                return;
+            }
+
+
+            const password =
+                prompt(
+                    "Enter A&R Manager password:"
+                );
+
+
+            if (!password) {
+                return;
+            }
+
+
+            const cleanEmail =
+                email
+                    .trim()
+                    .toLowerCase();
+
+
+            const users =
+                JSON.parse(
+                    localStorage.getItem(
+                        "voidrecords_users"
+                    ) || "{}"
+                );
+
+
+            const userKey =
+                "ar_" + cleanEmail;
 
 
             if (users[userKey]) {
 
                 alert(
-                    '✗ This email is already registered.'
+                    "✗ This email is already registered."
                 );
 
                 return;
@@ -1526,81 +2541,186 @@
 
             users[userKey] = {
 
-                name: name,
+                name:
+                    name.trim(),
 
-                email: email,
+                email:
+                    cleanEmail,
 
-                password: password,
+                password:
+                    password,
 
-                role: 'ar'
+                role:
+                    "ar"
+
             };
 
 
             localStorage.setItem(
-                'voidrecords_users',
+                "voidrecords_users",
                 JSON.stringify(users)
             );
 
 
             alert(
-                `✓ A&R Manager "${name}" created successfully!\n\nEmail: ${email}\nPassword: ${password}`
+                `✓ A&R Manager created successfully!\n\n` +
+                `Name: ${name}\n` +
+                `Email: ${cleanEmail}\n` +
+                `Password: ${password}`
             );
         }
 
 
-        // Logout
-        document.getElementById('logoutBtn')
-            .addEventListener('click', () => {
+        /* =================================
+           LOGOUT
+        ================================= */
 
-                currentUser = null;
-                currentRole = null;
+        document
+            .getElementById("logoutBtn")
+            .addEventListener(
+                "click",
+                function () {
 
+                    currentUser = null;
 
-                document.getElementById('dashboard')
-                    .classList.remove('show');
-
-
-                document.getElementById('roleSelection')
-                    .style.display = 'block';
-
-
-                document.getElementById('userName')
-                    .classList.remove('show');
+                    currentRole = null;
 
 
-                document.getElementById('logoutBtn')
-                    .classList.remove('show');
+                    /*
+                     * Hide dashboard
+                     */
+
+                    document
+                        .getElementById("dashboard")
+                        .classList.remove("show");
 
 
-                clearMessage();
+                    /*
+                     * Hide authentication
+                     */
+
+                    document
+                        .getElementById("authContainer")
+                        .classList.remove("show");
 
 
-                localStorage.removeItem(
-                    'voidrecords_currentUser'
-                );
-            });
+                    /*
+                     * SHOW ROLE SELECTION
+                     */
+
+                    document
+                        .getElementById("roleSelection")
+                        .style.display = "block";
 
 
-        // Check if user is already logged in
-        window.addEventListener('load', () => {
+                    /*
+                     * Hide user information
+                     */
 
-            const savedUser =
-                localStorage.getItem(
-                    'voidrecords_currentUser'
-                );
+                    document
+                        .getElementById("userName")
+                        .classList.remove("show");
 
 
-            if (savedUser) {
+                    document
+                        .getElementById("logoutBtn")
+                        .classList.remove("show");
 
-                currentUser =
-                    JSON.parse(savedUser);
 
-                currentRole =
-                    currentUser.role;
+                    hideAllForms();
 
-                showDashboard();
+                    clearForms();
+
+                    clearMessage();
+
+
+                    localStorage.removeItem(
+                        "voidrecords_currentUser"
+                    );
+
+                }
+            );
+
+
+        /* =================================
+           CHECK SAVED LOGIN
+        ================================= */
+
+        window.addEventListener(
+            "load",
+            function () {
+
+                const savedUser =
+                    localStorage.getItem(
+                        "voidrecords_currentUser"
+                    );
+
+
+                if (!savedUser) {
+
+                    /*
+                     * Make absolutely sure
+                     * role selection is visible.
+                     */
+
+                    document
+                        .getElementById("roleSelection")
+                        .style.display = "block";
+
+                    return;
+                }
+
+
+                try {
+
+                    currentUser =
+                        JSON.parse(savedUser);
+
+
+                    if (
+                        !currentUser ||
+                        !currentUser.role
+                    ) {
+
+                        throw new Error(
+                            "Invalid session"
+                        );
+                    }
+
+
+                    currentRole =
+                        currentUser.role;
+
+
+                    showDashboard();
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Invalid saved session:",
+                        error
+                    );
+
+
+                    localStorage.removeItem(
+                        "voidrecords_currentUser"
+                    );
+
+
+                    currentUser = null;
+
+                    currentRole = null;
+
+
+                    document
+                        .getElementById("roleSelection")
+                        .style.display = "block";
+                }
+
             }
-        });
+        );
 
     </script>
 
