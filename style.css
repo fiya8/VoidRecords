@@ -1,0 +1,105 @@
+.paper {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    background: white;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15);
+
+    z-index: 1;
+
+    /*
+     * Starts heavily crumpled, then gradually
+     * becomes a flat sheet of paper.
+     */
+    animation: paperCrumple 2s ease-out forwards;
+}
+
+.logo {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+
+    position: relative;
+    z-index: 2;
+
+    animation: logoAppear 2s ease-out forwards;
+}
+
+@keyframes paperCrumple {
+
+    0% {
+        opacity: 0;
+        transform:
+            scale(0.55)
+            rotate(-18deg)
+            skewX(18deg)
+            skewY(-15deg);
+        border-radius: 45% 25% 50% 30%;
+        filter: blur(2px);
+    }
+
+    20% {
+        opacity: 1;
+        transform:
+            scale(0.7)
+            rotate(12deg)
+            skewX(-15deg)
+            skewY(12deg);
+        border-radius: 35% 50% 25% 45%;
+        filter: blur(1px);
+    }
+
+    45% {
+        transform:
+            scale(0.85)
+            rotate(-8deg)
+            skewX(10deg)
+            skewY(-8deg);
+        border-radius: 25% 40% 35% 20%;
+        filter: blur(0.5px);
+    }
+
+    70% {
+        transform:
+            scale(0.95)
+            rotate(4deg)
+            skewX(-4deg)
+            skewY(3deg);
+        border-radius: 10% 15% 8% 12%;
+    }
+
+    100% {
+        transform:
+            scale(1)
+            rotate(0deg)
+            skewX(0deg)
+            skewY(0deg);
+        border-radius: 0;
+        filter: blur(0);
+    }
+}
+
+@keyframes logoAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+
+    45% {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+
+    75% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
