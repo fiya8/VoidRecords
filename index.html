@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VoidRecords - Where Sound Meets the Void</title>
+    <title>VoidRecords - Page Not Found</title>
 
-    <!-- VoidRecords Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png?v=2">
-    <link rel="shortcut icon" href="favicon.png?v=2">
-    <link rel="apple-touch-icon" href="favicon.png?v=2">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
 
     <style>
         * {
@@ -20,110 +20,50 @@
         }
 
         :root {
-            --primary-black: #0a0a0a;
-            --secondary-black: #1a1a1a;
-            --tertiary-black: #2a2a2a;
-            --primary-white: #ffffff;
-            --secondary-white: #f5f5f5;
-            --gray-light: #e0e0e0;
-            --accent: #ffffff;
+            --black: #0a0a0a;
+            --dark: #151515;
+            --gray: #2a2a2a;
+            --white: #ffffff;
+            --light: #e0e0e0;
         }
 
-        html {
-            scroll-behavior: smooth;
+        html, body {
+            width: 100%;
+            min-height: 100%;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--primary-black);
-            color: var(--primary-white);
-            overflow-x: hidden;
+            background:
+                radial-gradient(circle at center, #202020 0%, #0a0a0a 65%);
+            color: var(--white);
+            overflow: hidden;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Stars */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes spin-slow {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 3s infinite ease-in-out;
         }
 
         @keyframes twinkle {
             0%, 100% {
-                opacity: 0.3;
+                opacity: 0.15;
             }
+
             50% {
                 opacity: 1;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
             }
         }
 
@@ -131,640 +71,232 @@
         .navbar {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(10, 10, 10, 0.95);
+            height: 70px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(10,10,10,0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-            animation: slideInDown 0.6s ease-out;
+            z-index: 10;
         }
 
         .nav-container {
+            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            margin: auto;
+            padding: 0 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
         }
 
         .logo {
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-weight: bold;
         }
 
         .logo-text {
+            color: white;
             font-size: 24px;
-            color: var(--primary-white);
+            font-weight: 900;
             letter-spacing: 2px;
         }
 
         .logo-records {
-            font-size: 14px;
-            color: var(--gray-light);
+            color: #aaa;
+            font-size: 13px;
             letter-spacing: 1px;
-            border-left: 1px solid var(--accent);
             padding-left: 8px;
+            border-left: 1px solid white;
         }
 
-        .nav-center {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-        }
-
-        .nav-link {
-            color: var(--gray-light);
+        .home-link {
+            color: #ccc;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--primary-white);
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-btn {
-            padding: 8px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: transparent;
-            color: var(--primary-white);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-btn:hover {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.primary {
-            background: var(--primary-white);
-            color: var(--primary-black);
-            border: none;
-        }
-
-        .nav-btn.primary:hover {
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info.hidden {
-            display: none;
-        }
-
-        .user-name {
-            color: var(--gray-light);
-            font-size: 14px;
-        }
-
-        .logout-btn {
-            padding: 8px 20px;
-            background: #ff4757;
-            color: var(--primary-white);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background: #ff3838;
-            transform: translateY(-2px);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-white);
-            margin: 5px 0;
             transition: 0.3s;
         }
 
-        /* Hero Section */
-        .hero {
-            position: relative;
-            height: 100vh;
+        .home-link:hover {
+            color: white;
+        }
+
+        /* Main */
+        .error-container {
+            min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
-            margin-top: 70px;
-        }
-
-        .stars,
-        .stars-2,
-        .stars-3 {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        .stars::before,
-        .stars::after,
-        .stars-2::before,
-        .stars-2::after,
-        .stars-3::before,
-        .stars-3::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            box-shadow:
-                50px 60px 0 -5px white,
-                130px 80px 0 -5px white,
-                90px 10px 0 -5px white,
-                130px 130px 0 -5px white,
-                90px 90px 0 -5px white;
-            animation: twinkle 3s infinite;
-        }
-
-        .stars-2::before {
-            animation-delay: 0.5s;
-        }
-
-        .stars-3::before {
-            animation-delay: 1s;
-        }
-
-        .hero-content {
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 40px;
             position: relative;
             z-index: 2;
-            text-align: center;
-            animation: fadeInUp 1s ease-out;
         }
 
-        .hero-title {
-            font-size: clamp(48px, 10vw, 120px);
+        .error-content {
+            max-width: 700px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 404 */
+        .error-code {
+            font-size: clamp(100px, 22vw, 220px);
             font-weight: 900;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-            line-height: 1.2;
+            line-height: 0.9;
+            letter-spacing: 10px;
+
+            background: linear-gradient(
+                180deg,
+                #ffffff,
+                #555555
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 0 50px rgba(255,255,255,0.08);
+            margin-bottom: 30px;
         }
 
-        .word {
-            display: inline-block;
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        .word:nth-child(2) {
-            animation: slideInRight 0.8s ease-out;
-        }
-
-        .hero-subtitle {
-            font-size: 24px;
-            color: var(--gray-light);
+        .error-title {
+            font-size: clamp(28px, 5vw, 48px);
             letter-spacing: 2px;
-            margin-bottom: 40px;
-            animation: fadeInUp 1.2s ease-out;
+            margin-bottom: 15px;
         }
 
-        .cta-button {
+        .error-message {
+            color: #aaa;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        /* Button */
+        .home-button {
             display: inline-block;
-            padding: 15px 50px;
-            background: var(--primary-white);
-            color: var(--primary-black);
+            padding: 14px 40px;
+            background: white;
+            color: black;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 1px;
-            border: 2px solid var(--primary-white);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            animation: fadeInUp 1.4s ease-out;
             text-transform: uppercase;
+            border: 2px solid white;
+            transition: all 0.3s ease;
         }
 
-        .cta-button:hover {
+        .home-button:hover {
             background: transparent;
-            color: var(--primary-white);
+            color: white;
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.15);
         }
 
-        /* Section Title */
-        .section-title {
-            font-size: 48px;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 60px;
-            letter-spacing: 2px;
+        /* Vinyl */
+        .vinyl {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 35px auto 0;
+
+            background:
+                repeating-radial-gradient(
+                    circle,
+                    #111 0px,
+                    #111 3px,
+                    #181818 4px,
+                    #111 6px
+                );
+
+            border: 2px solid #444;
             position: relative;
-            display: inline-block;
-            width: 100%;
+            animation: spin 8s linear infinite;
         }
 
-        .section-title::after {
+        .vinyl::before {
             content: '';
             position: absolute;
-            bottom: -15px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #333;
+            border: 2px solid #777;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary-white);
+            transform: translate(-50%, -50%);
         }
 
-        /* Artists Section */
-        .artists {
-            padding: 100px 20px;
-            background: var(--primary-black);
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .artists-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
 
-        .artist-card {
-            text-align: center;
-            animation: fadeInUp 0.8s ease-out both;
-            transition: all 0.3s ease;
-        }
-
-        .artist-card:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .artist-card:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .artist-card:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
-        .artist-card:nth-child(4) {
-            animation-delay: 0.4s;
-        }
-
-        .artist-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .artist-image {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .artist-card:hover .artist-image {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-
-        .artist-icon {
-            font-size: 80px;
-            opacity: 0.8;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .artist-card h3 {
-            font-size: 22px;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .artist-card p {
-            color: var(--gray-light);
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-
-        .artist-name {
-            color: var(--gray-light);
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .release-date {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
-            margin-bottom: 20px;
-        }
-
-        .play-btn {
-            background: var(--primary-white);
-            color: var(--primary-black);
-            border: none;
-            padding: 10px 25px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-        }
-
-        .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* About Section */
-        .about {
-            padding: 100px 20px;
-            background: var(--primary-black);
-        }
-
-        .about-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 48px;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
-
-        .about-text p {
-            color: var(--gray-light);
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .stat:hover {
-            border-color: var(--primary-white);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-        }
-
-        .stat h4 {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .stat p {
-            margin: 0;
-            color: var(--gray-light);
-        }
-
-        .about-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .floating-box {
-            width: 300px;
-            height: 300px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .inner-box {
-            width: 80%;
-            height: 80%;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            animation: spin-slow 6s linear infinite reverse;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 20px;
-            background: linear-gradient(180deg, var(--secondary-black) 0%, var(--primary-black) 100%);
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 48px;
-            margin-bottom: 50px;
-            letter-spacing: 2px;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 15px;
-            background: var(--tertiary-black);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--primary-white);
-            border-radius: 5px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--primary-white);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .submit-btn {
-            background: var(--primary-white);
-            color: var(--primary-black);
-            border: none;
-            padding: 15px 50px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Footer */
         .footer {
-            background: var(--secondary-black);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-content p {
-            color: var(--gray-light);
-            margin-bottom: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .social-icon {
-            color: var(--gray-light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 14px;
+            color: #555;
+            font-size: 12px;
             letter-spacing: 0.5px;
+            z-index: 3;
         }
 
-        .social-icon:hover {
-            color: var(--primary-white);
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-center {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: clamp(36px, 8vw, 60px);
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 36px;
-            }
-
-            .artists-grid,
-            .releases-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
+        /* Mobile */
+        @media (max-width: 600px) {
             .logo-records {
                 display: none;
             }
 
-            .hero-subtitle {
-                font-size: 18px;
+            .home-link {
+                font-size: 12px;
             }
 
-            .cta-button {
+            .error-code {
+                letter-spacing: 5px;
+            }
+
+            .error-message {
+                font-size: 15px;
+            }
+
+            .home-button {
                 padding: 12px 30px;
-                font-size: 14px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            .about-text h2 {
-                font-size: 32px;
-            }
-
-            .nav-right {
-                gap: 8px;
-            }
-
-            .nav-btn {
-                padding: 6px 12px;
-                font-size: 11px;
             }
         }
     </style>
@@ -772,569 +304,81 @@
 
 <body>
 
+    <!-- Stars -->
+    <div class="stars" id="stars"></div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
 
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <span class="logo-text">VOID</span>
                 <span class="logo-records">RECORDS</span>
-            </div>
+            </a>
 
-            <ul class="nav-center">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#artists" class="nav-link">Artists</a></li>
-                <li><a href="#releases" class="nav-link">Releases</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-
-            <div class="nav-right">
-
-                <div class="user-info" id="userInfo">
-                    <span class="user-name" id="userName"></span>
-
-                    <button
-                        class="logout-btn"
-                        id="logoutBtn"
-                        onclick="logout()">
-                        Logout
-                    </button>
-                </div>
-
-                <div id="authButtons">
-                    <a href="login.html" class="nav-btn">Login</a>
-
-                    <a href="login.html" class="nav-btn primary">
-                        Apply as Artist
-                    </a>
-                </div>
-
-            </div>
-
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <a href="index.html" class="home-link">
+                Return Home
+            </a>
 
         </div>
     </nav>
 
+    <!-- Error -->
+    <main class="error-container">
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+        <div class="error-content">
 
-        <div class="stars"></div>
-        <div class="stars-2"></div>
-        <div class="stars-3"></div>
+            <div class="error-code">404</div>
 
-        <div class="hero-content">
-
-            <h1 class="hero-title">
-                <span class="word">VOID</span>
-                <span class="word">RECORDS</span>
+            <h1 class="error-title">
+                Lost in the Void
             </h1>
 
-            <p class="hero-subtitle">
-                Where Sound Meets the Void
+            <p class="error-message">
+                The page you're looking for doesn't exist,
+                was moved, or disappeared into the void.
+                <br>
+                Don't worry — the music is still here.
             </p>
 
-            <a href="#releases" class="cta-button">
-                View our Catalog
+            <a href="index.html" class="home-button">
+                ← Return to VoidRecords
             </a>
 
-        </div>
-    </section>
-
-
-    <!-- Artists Section -->
-    <section id="artists" class="artists">
-
-        <div class="section-title">
-            Featured Artists
-        </div>
-
-        <div class="artists-grid">
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #000, #333);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>prodgloxkz</h3>
-                <p>JerseyClub Producer</p>
-
-            </div>
-
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #1a1a1a, #444);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>prodbykaydaz</h3>
-                <p>JerseyClub Producer</p>
-
-            </div>
-
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #0a0a0a, #2a2a2a);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>Crizo</h3>
-                <p>JerseyClub Producer</p>
-
-            </div>
-
-
-            <div class="artist-card">
-
-                <div
-                    class="artist-image"
-                    style="background: linear-gradient(135deg, #111, #555);">
-
-                    <span class="artist-icon">♪</span>
-
-                </div>
-
-                <h3>Sleepyzen</h3>
-                <p>JerseyClub Producer</p>
-
-            </div>
+            <div class="vinyl"></div>
 
         </div>
-    </section>
 
+    </main>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-
-        <div class="about-content">
-
-            <div class="about-text">
-
-                <h2>About VoidRecords</h2>
-
-                <p>
-                    VoidRecords is an independent record label dedicated
-                    to discovering and promoting innovative artists across
-                    genres. We believe in the power of music to transcend
-                    boundaries and create new experiences.
-                </p>
-
-                <p>
-                    Founded in 2026, we've been at the forefront of digital
-                    music distribution, connecting artists with listeners
-                    worldwide through cutting-edge platforms and creative
-                    collaborations.
-                </p>
-
-                <div class="stats">
-
-                    <div class="stat">
-                        <h4>5</h4>
-                        <p>Artists</p>
-                    </div>
-
-                    <div class="stat">
-                        <h4>0</h4>
-                        <p>Releases</p>
-                    </div>
-
-                    <div class="stat">
-                        <h4>0</h4>
-                        <p>Streams</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="about-visual">
-
-                <div class="floating-box">
-                    <div class="inner-box"></div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-
-        <h2>Get in Touch</h2>
-
-        <form class="contact-form">
-
-            <div class="form-group">
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <input
-                    type="email"
-                    placeholder="Your Email"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <textarea
-                    placeholder="Your Message"
-                    rows="6"
-                    required></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">
-                Send Message
-            </button>
-
-        </form>
-
-    </section>
-
-
-    <!-- Footer -->
     <footer class="footer">
-
-        <div class="footer-content">
-
-            <p>
-                &copy; 2026 VoidRecords Music & Entertainment. All rights reserved.
-            </p>
-
-            <div class="social-links">
-
-                <a href="#" class="social-icon">
-                    Spotify
-                </a>
-
-                <a href="#" class="social-icon">
-                    Apple Music
-                </a>
-
-                <a href="#" class="social-icon">
-                    Twitter
-                </a>
-
-                <a href="#" class="social-icon">
-                    Instagram
-                </a>
-
-            </div>
-
-        </div>
-
+        © 2026 VoidRecords — Music Without Boundaries
     </footer>
 
-
     <script>
+        // Create random stars
+        const stars = document.getElementById('stars');
 
-        // Check if user is logged in
-        function checkUserLogin() {
+        for (let i = 0; i < 80; i++) {
 
-            const currentUser =
-                localStorage.getItem('voidrecords_currentUser');
+            const star = document.createElement('div');
 
-            const userInfo =
-                document.getElementById('userInfo');
+            star.className = 'star';
 
-            const authButtons =
-                document.getElementById('authButtons');
+            star.style.left =
+                Math.random() * 100 + '%';
 
-            const userName =
-                document.getElementById('userName');
+            star.style.top =
+                Math.random() * 100 + '%';
 
-            const logoutBtn =
-                document.getElementById('logoutBtn');
+            star.style.animationDelay =
+                Math.random() * 3 + 's';
 
-            if (currentUser) {
+            star.style.opacity =
+                Math.random();
 
-                const user =
-                    JSON.parse(currentUser);
-
-                userName.textContent =
-                    `Welcome, ${user.name}!`;
-
-                userInfo.classList.remove('hidden');
-
-                authButtons.style.display =
-                    'none';
-
-            } else {
-
-                userInfo.classList.add('hidden');
-
-                authButtons.style.display =
-                    'flex';
-            }
+            stars.appendChild(star);
         }
-
-
-        // Logout function
-        function logout() {
-
-            localStorage.removeItem(
-                'voidrecords_currentUser'
-            );
-
-            checkUserLogin();
-
-            window.location.href =
-                'index.html';
-        }
-
-
-        // Initialize on page load
-        window.addEventListener(
-            'load',
-            checkUserLogin
-        );
-
-
-        // Smooth navigation
-        document
-            .querySelectorAll('a[href^="#"]')
-            .forEach(anchor => {
-
-                anchor.addEventListener(
-                    'click',
-                    function (e) {
-
-                        e.preventDefault();
-
-                        const target =
-                            document.querySelector(
-                                this.getAttribute('href')
-                            );
-
-                        if (target) {
-
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-
-                            updateActiveNav(
-                                this.getAttribute('href')
-                            );
-                        }
-                    }
-                );
-            });
-
-
-        // Update active navigation link
-        function updateActiveNav(id) {
-
-            document
-                .querySelectorAll('.nav-link')
-                .forEach(link => {
-
-                    link.classList.remove(
-                        'active'
-                    );
-                });
-
-            const activeLink =
-                document.querySelector(
-                    `a[href="${id}"]`
-                );
-
-            if (activeLink) {
-                activeLink.classList.add(
-                    'active'
-                );
-            }
-        }
-
-
-        // Update active nav on scroll
-        window.addEventListener(
-            'scroll',
-            () => {
-
-                let current = '';
-
-                const sections =
-                    document.querySelectorAll(
-                        'section'
-                    );
-
-                sections.forEach(section => {
-
-                    const sectionTop =
-                        section.offsetTop;
-
-                    const sectionHeight =
-                        section.clientHeight;
-
-                    if (
-                        pageYOffset >=
-                        sectionTop - 200
-                    ) {
-
-                        current =
-                            section.getAttribute(
-                                'id'
-                            );
-                    }
-                });
-
-                if (current) {
-
-                    document
-                        .querySelectorAll(
-                            '.nav-link'
-                        )
-                        .forEach(link => {
-
-                            link.classList.remove(
-                                'active'
-                            );
-                        });
-
-                    document
-                        .querySelector(
-                            `a[href="#${current}"]`
-                        )
-                        ?.classList.add(
-                            'active'
-                        );
-                }
-            }
-        );
-
-
-        // Parallax effect for hero
-        window.addEventListener(
-            'scroll',
-            () => {
-
-                const stars =
-                    document.querySelectorAll(
-                        '.stars, .stars-2, .stars-3'
-                    );
-
-                stars.forEach(
-                    (star, index) => {
-
-                        star.style.transform =
-                            `translateY(${
-                                window.scrollY *
-                                (0.3 + index * 0.1)
-                            }px)`;
-                    }
-                );
-            }
-        );
-
-
-        // Rotate vinyl on hover
-        document
-            .querySelectorAll(
-                '.vinyl-record'
-            )
-            .forEach(vinyl => {
-
-                vinyl.addEventListener(
-                    'mouseenter',
-                    function () {
-
-                        this.style.animationPlayState =
-                            'paused';
-                    }
-                );
-
-                vinyl.addEventListener(
-                    'mouseleave',
-                    function () {
-
-                        this.style.animationPlayState =
-                            'running';
-                    }
-                );
-            });
-
-
-        // Contact form submission
-        const contactForm =
-            document.querySelector(
-                '.contact-form'
-            );
-
-        if (contactForm) {
-
-            contactForm.addEventListener(
-                'submit',
-                (e) => {
-
-                    e.preventDefault();
-
-                    const submitBtn =
-                        contactForm.querySelector(
-                            '.submit-btn'
-                        );
-
-                    const originalText =
-                        submitBtn.textContent;
-
-                    submitBtn.textContent =
-                        'Message Sent! ✓';
-
-                    submitBtn.style.background =
-                        'var(--accent)';
-
-                    setTimeout(() => {
-
-                        submitBtn.textContent =
-                            originalText;
-
-                        submitBtn.style.background =
-                            'var(--primary-white)';
-
-                        contactForm.reset();
-
-                    }, 3000);
-                }
-            );
-        }
-
-
-        console.log(
-            '%cWelcome to VoidRecords',
-            'color: white; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(255,255,255,0.5);'
-        );
-
-        console.log(
-            '%cMusic Without Boundaries',
-            'color: #e0e0e0; font-size: 14px;'
-        );
-
     </script>
 
 </body>
