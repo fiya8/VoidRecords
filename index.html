@@ -963,7 +963,7 @@ body {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transition: opacity 1s ease, visibility 1s ease;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
 #loading-screen.fade-out {
@@ -1291,116 +1291,55 @@ body {
 
 <script>
         /* =========================================
-           VOIDRECORDS LOADING / ERROR CHECK
+           VOIDRECORDS FAST LOADING SCREEN
            ========================================= */
 
         const loadingScreen =
             document.getElementById('loading-screen');
 
-        const loadingLogo =
-            document.getElementById('loading-logo');
-
-        let startupError = false;
         let startupFinished = false;
 
-        // Catch real JavaScript errors that happen during startup.
-        window.addEventListener('error', function (event) {
-            if (event.target === window) {
-                startupError = true;
-                console.error(
-                    'VoidRecords startup error:',
-                    event.message
-                );
-            }
-        });
+        function finishLoading() {
 
-        // Catch rejected promises during startup.
-        window.addEventListener('unhandledrejection', function (event) {
-            startupError = true;
-            console.error(
-                'VoidRecords startup promise error:',
-                event.reason
-            );
-        });
-
-        // Verify the loading logo is available.
-        function checkLoadingLogo() {
-            return new Promise(function (resolve) {
-                if (
-                    loadingLogo &&
-                    loadingLogo.complete &&
-                    loadingLogo.naturalWidth > 0
-                ) {
-                    resolve(true);
-                    return;
-                }
-
-                if (!loadingLogo) {
-                    resolve(false);
-                    return;
-                }
-
-                loadingLogo.addEventListener(
-                    'load',
-                    function () {
-                        resolve(true);
-                    },
-                    { once: true }
-                );
-
-                loadingLogo.addEventListener(
-                    'error',
-                    function () {
-                        resolve(false);
-                    },
-                    { once: true }
-                );
-            });
-        }
-
-        // Fade the loader away after startup checks pass.
-        async function finishLoading() {
             if (startupFinished || !loadingScreen) {
-                return;
-            }
-
-            const logoOK = await checkLoadingLogo();
-
-            if (!logoOK) {
-                console.error(
-                    'VoidRecords ERROR: favicon.png could not be loaded.'
-                );
-                return;
-            }
-
-            if (startupError) {
-                console.error(
-                    'VoidRecords ERROR: a startup JavaScript error was detected.'
-                );
                 return;
             }
 
             startupFinished = true;
 
-            console.log(
-                '%cVoidRecords loaded successfully.',
-                'color:white;font-size:18px;font-weight:bold;'
-            );
-
             loadingScreen.classList.add('fade-out');
 
             setTimeout(function () {
-                if (loadingScreen && loadingScreen.parentNode) {
-                    loadingScreen.parentNode.removeChild(loadingScreen);
+                if (
+                    loadingScreen &&
+                    loadingScreen.parentNode
+                ) {
+                    loadingScreen.parentNode.removeChild(
+                        loadingScreen
+                    );
                 }
-            }, 1100);
+            }, 700);
         }
 
-        // Wait until the page and its normal resources have finished loading.
-        window.addEventListener('load', function () {
-            // Keep the heartbeat visible briefly.
-            setTimeout(finishLoading, 900);
-        }, { once: true });
+        /*
+         * The website loads normally underneath the
+         * loading screen. As soon as the browser says
+         * the page is ready, remove the overlay.
+         */
+        if (document.readyState === 'complete') {
+
+            finishLoading();
+
+        } else {
+
+            window.addEventListener(
+                'load',
+                finishLoading,
+                { once: true }
+            );
+
+        }
+
 
         // Check if user is logged in
         function checkUserLogin() {
