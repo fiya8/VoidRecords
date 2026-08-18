@@ -209,6 +209,22 @@ body {
     padding-left: 8px;
 }
 
+
+/* Navbar favicon logo */
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.navbar .logo img {
+    display: block;
+    width: 150px;
+    height: 44px;
+    object-fit: contain;
+}
+
 .nav-menu,
 .nav-center {
     display: flex;
@@ -998,10 +1014,9 @@ body {
     <nav class="navbar">
         <div class="nav-container">
 
-            <div class="logo">
-                <span class="logo-text">VOID</span>
-                <span class="logo-records">RECORDS</span>
-            </div>
+            <a href="#home" class="logo" aria-label="Void Records">
+    <img src="favicon.png" alt="Void Records">
+</a>
 
             <ul class="nav-center">
                 <li><a href="#home" class="nav-link active">Home</a></li>
