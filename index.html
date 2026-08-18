@@ -1,28 +1,756 @@
-<script>
-    const MAIN_URL = "https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    const logo = document.getElementById("logo");
+    <title>VoidRecords - Where Sound Meets the Void</title>
 
-    let hasError = false;
+    <!-- VoidRecords Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png?v=2">
+    <link rel="shortcut icon" href="favicon.png?v=2">
+    <link rel="apple-touch-icon" href="favicon.png?v=2">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    window.addEventListener("error", function () {
-        hasError = true;
-    });
 
-    logo.addEventListener("error", function () {
-        hasError = true;
-    });
+<body>
 
-    logo.addEventListener("load", function () {
-        setTimeout(function () {
+    <!-- =========================================
+         VOIDRECORDS LOADING SCREEN
+         ========================================= -->
+    <div id="loading-screen">
+        <img
+            id="loading-logo"
+            src="favicon.png"
+            width="200"
+            height="200"
+            alt="VoidRecords"
+        >
+    </div>
 
-            if (hasError) {
-                console.error("Loading error.");
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <div class="logo">
+                <span class="logo-text">VOID</span>
+                <span class="logo-records">RECORDS</span>
+            </div>
+
+            <ul class="nav-center">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#artists" class="nav-link">Artists</a></li>
+                <li><a href="#releases" class="nav-link">Releases</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-right">
+
+                <div class="user-info" id="userInfo">
+                    <span class="user-name" id="userName"></span>
+
+                    <button
+                        class="logout-btn"
+                        id="logoutBtn"
+                        onclick="logout()">
+                        Logout
+                    </button>
+                </div>
+
+                <div id="authButtons">
+                    <a href="login.html" class="nav-btn">Login</a>
+
+                    <a href="login.html" class="nav-btn primary">
+                        Apply as Artist
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+
+        <div class="stars"></div>
+        <div class="stars-2"></div>
+        <div class="stars-3"></div>
+
+        <div class="hero-content">
+
+            <h1 class="hero-title">
+                <span class="word">VOID</span>
+                <span class="word">RECORDS</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Where Sound Meets the Void
+            </p>
+
+            <a href="#releases" class="cta-button">
+                View our Catalog
+            </a>
+
+        </div>
+    </section>
+
+
+    <!-- Artists Section -->
+    <section id="artists" class="artists">
+
+        <div class="section-title">
+            Featured Artists
+        </div>
+
+        <div class="artists-grid">
+
+            <div class="artist-card">
+
+                <div
+                    class="artist-image"
+                    style="background: linear-gradient(135deg, #000, #333);">
+
+                    <span class="artist-icon">♪</span>
+
+                </div>
+
+                <h3>prodgloxkz</h3>
+                <p>JerseyClub Producer</p>
+
+            </div>
+
+
+            <div class="artist-card">
+
+                <div
+                    class="artist-image"
+                    style="background: linear-gradient(135deg, #1a1a1a, #444);">
+
+                    <span class="artist-icon">♪</span>
+
+                </div>
+
+                <h3>prodbykaydaz</h3>
+                <p>JerseyClub Producer</p>
+
+            </div>
+
+
+            <div class="artist-card">
+
+                <div
+                    class="artist-image"
+                    style="background: linear-gradient(135deg, #0a0a0a, #2a2a2a);">
+
+                    <span class="artist-icon">♪</span>
+
+                </div>
+
+                <h3>Crizo</h3>
+                <p>JerseyClub Producer</p>
+
+            </div>
+
+
+            <div class="artist-card">
+
+                <div
+                    class="artist-image"
+                    style="background: linear-gradient(135deg, #111, #555);">
+
+                    <span class="artist-icon">♪</span>
+
+                </div>
+
+                <h3>Sleepyzen</h3>
+                <p>JerseyClub Producer</p>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="about">
+
+        <div class="about-content">
+
+            <div class="about-text">
+
+                <h2>About VoidRecords</h2>
+
+                <p>
+                    VoidRecords is an independent record label dedicated
+                    to discovering and promoting innovative artists across
+                    genres. We believe in the power of music to transcend
+                    boundaries and create new experiences.
+                </p>
+
+                <p>
+                    Founded in 2026, we've been at the forefront of digital
+                    music distribution, connecting artists with listeners
+                    worldwide through cutting-edge platforms and creative
+                    collaborations.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat">
+                        <h4>5</h4>
+                        <p>Artists</p>
+                    </div>
+
+                    <div class="stat">
+                        <h4>0</h4>
+                        <p>Releases</p>
+                    </div>
+
+                    <div class="stat">
+                        <h4>0</h4>
+                        <p>Streams</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="about-visual">
+
+                <div class="floating-box">
+                    <div class="inner-box"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+
+        <h2>Get in Touch</h2>
+
+        <form class="contact-form">
+
+            <div class="form-group">
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <textarea
+                    placeholder="Your Message"
+                    rows="6"
+                    required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Send Message
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <p>
+                &copy; 2026 VoidRecords Music & Entertainment. All rights reserved.
+            </p>
+
+            <div class="social-links">
+
+                <a href="#" class="social-icon">
+                    Spotify
+                </a>
+
+                <a href="#" class="social-icon">
+                    Apple Music
+                </a>
+
+                <a href="#" class="social-icon">
+                    Twitter
+                </a>
+
+                <a href="#" class="social-icon">
+                    Instagram
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+        /* =========================================
+           VOIDRECORDS LOADING / ERROR CHECK
+           ========================================= */
+
+        const loadingScreen =
+            document.getElementById("loading-screen");
+
+        let startupError = false;
+
+        // Catch JavaScript errors during startup.
+        window.addEventListener("error", function (event) {
+            // Ignore errors caused by the loading screen itself
+            // after it has already been removed.
+            if (event.target === window) {
+                startupError = true;
+                console.error(
+                    "VoidRecords startup error:",
+                    event.error || event.message
+                );
+            }
+        });
+
+        // Catch failed resources such as images, stylesheets, and scripts.
+        window.addEventListener(
+            "error",
+            function (event) {
+                if (event.target !== window) {
+                    startupError = true;
+                    console.error(
+                        "VoidRecords resource failed:",
+                        event.target
+                    );
+                }
+            },
+            true
+        );
+
+        // Check that favicon.png can be loaded.
+        function checkLogo() {
+            return new Promise(function (resolve) {
+                const image = new Image();
+
+                image.onload = function () {
+                    resolve(true);
+                };
+
+                image.onerror = function () {
+                    resolve(false);
+                };
+
+                image.src = "favicon.png?check=" + Date.now();
+            });
+        }
+
+        // Wait for all images currently used by the website.
+        function checkImages() {
+            const images = Array.from(document.images);
+
+            return Promise.all(
+                images.map(function (image) {
+                    if (image.complete) {
+                        return Promise.resolve(
+                            image.naturalWidth > 0
+                        );
+                    }
+
+                    return new Promise(function (resolve) {
+                        image.addEventListener(
+                            "load",
+                            function () {
+                                resolve(true);
+                            },
+                            { once: true }
+                        );
+
+                        image.addEventListener(
+                            "error",
+                            function () {
+                                resolve(false);
+                            },
+                            { once: true }
+                        );
+                    });
+                })
+            );
+        }
+
+        // Run all startup checks.
+        async function runLoadingCheck() {
+            console.log(
+                "%cVoidRecords startup check...",
+                "color:white;font-size:18px;font-weight:bold;"
+            );
+
+            // Let the heartbeat animation start.
+            await new Promise(function (resolve) {
+                setTimeout(resolve, 800);
+            });
+
+            // Check favicon.png.
+            const logoOK = await checkLogo();
+
+            if (!logoOK) {
+                console.error(
+                    "VoidRecords ERROR: favicon.png failed to load."
+                );
                 return;
             }
 
-            window.location.href = MAIN_URL;
+            // Check all website images.
+            const imageResults = await checkImages();
 
-        }, 2500);
-    });
-</script>
+            const imagesOK = imageResults.every(
+                result => result === true
+            );
+
+            if (!imagesOK) {
+                console.error(
+                    "VoidRecords ERROR: One or more images failed to load."
+                );
+                return;
+            }
+
+            // Allow the browser to finish rendering.
+            await new Promise(function (resolve) {
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(resolve);
+                });
+            });
+
+            // Stop the successful load if a startup error occurred.
+            if (startupError) {
+                console.error(
+                    "VoidRecords ERROR: Startup error detected."
+                );
+                return;
+            }
+
+            console.log(
+                "%cVoidRecords loaded successfully.",
+                "color:white;font-size:18px;font-weight:bold;"
+            );
+
+            // Fade the loading screen away.
+            loadingScreen.classList.add("fade-out");
+
+            // Remove it after the 1-second CSS transition.
+            setTimeout(function () {
+                loadingScreen.remove();
+            }, 1000);
+        }
+
+        // Start after the entire page has loaded.
+        window.addEventListener("load", runLoadingCheck);
+
+
+
+        // Check if user is logged in
+        function checkUserLogin() {
+
+            const currentUser =
+                localStorage.getItem('voidrecords_currentUser');
+
+            const userInfo =
+                document.getElementById('userInfo');
+
+            const authButtons =
+                document.getElementById('authButtons');
+
+            const userName =
+                document.getElementById('userName');
+
+            const logoutBtn =
+                document.getElementById('logoutBtn');
+
+            if (currentUser) {
+
+                const user =
+                    JSON.parse(currentUser);
+
+                userName.textContent =
+                    `Welcome, ${user.name}!`;
+
+                userInfo.classList.remove('hidden');
+
+                authButtons.style.display =
+                    'none';
+
+            } else {
+
+                userInfo.classList.add('hidden');
+
+                authButtons.style.display =
+                    'flex';
+            }
+        }
+
+
+        // Logout function
+        function logout() {
+
+            localStorage.removeItem(
+                'voidrecords_currentUser'
+            );
+
+            checkUserLogin();
+
+            window.location.href =
+                'index.html';
+        }
+
+
+        // Initialize on page load
+        window.addEventListener(
+            'load',
+            checkUserLogin
+        );
+
+
+        // Smooth navigation
+        document
+            .querySelectorAll('a[href^="#"]')
+            .forEach(anchor => {
+
+                anchor.addEventListener(
+                    'click',
+                    function (e) {
+
+                        e.preventDefault();
+
+                        const target =
+                            document.querySelector(
+                                this.getAttribute('href')
+                            );
+
+                        if (target) {
+
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+
+                            updateActiveNav(
+                                this.getAttribute('href')
+                            );
+                        }
+                    }
+                );
+            });
+
+
+        // Update active navigation link
+        function updateActiveNav(id) {
+
+            document
+                .querySelectorAll('.nav-link')
+                .forEach(link => {
+
+                    link.classList.remove(
+                        'active'
+                    );
+                });
+
+            const activeLink =
+                document.querySelector(
+                    `a[href="${id}"]`
+                );
+
+            if (activeLink) {
+                activeLink.classList.add(
+                    'active'
+                );
+            }
+        }
+
+
+        // Update active nav on scroll
+        window.addEventListener(
+            'scroll',
+            () => {
+
+                let current = '';
+
+                const sections =
+                    document.querySelectorAll(
+                        'section'
+                    );
+
+                sections.forEach(section => {
+
+                    const sectionTop =
+                        section.offsetTop;
+
+                    const sectionHeight =
+                        section.clientHeight;
+
+                    if (
+                        pageYOffset >=
+                        sectionTop - 200
+                    ) {
+
+                        current =
+                            section.getAttribute(
+                                'id'
+                            );
+                    }
+                });
+
+                if (current) {
+
+                    document
+                        .querySelectorAll(
+                            '.nav-link'
+                        )
+                        .forEach(link => {
+
+                            link.classList.remove(
+                                'active'
+                            );
+                        });
+
+                    document
+                        .querySelector(
+                            `a[href="#${current}"]`
+                        )
+                        ?.classList.add(
+                            'active'
+                        );
+                }
+            }
+        );
+
+
+        // Parallax effect for hero
+        window.addEventListener(
+            'scroll',
+            () => {
+
+                const stars =
+                    document.querySelectorAll(
+                        '.stars, .stars-2, .stars-3'
+                    );
+
+                stars.forEach(
+                    (star, index) => {
+
+                        star.style.transform =
+                            `translateY(${
+                                window.scrollY *
+                                (0.3 + index * 0.1)
+                            }px)`;
+                    }
+                );
+            }
+        );
+
+
+        // Rotate vinyl on hover
+        document
+            .querySelectorAll(
+                '.vinyl-record'
+            )
+            .forEach(vinyl => {
+
+                vinyl.addEventListener(
+                    'mouseenter',
+                    function () {
+
+                        this.style.animationPlayState =
+                            'paused';
+                    }
+                );
+
+                vinyl.addEventListener(
+                    'mouseleave',
+                    function () {
+
+                        this.style.animationPlayState =
+                            'running';
+                    }
+                );
+            });
+
+
+        // Contact form submission
+        const contactForm =
+            document.querySelector(
+                '.contact-form'
+            );
+
+        if (contactForm) {
+
+            contactForm.addEventListener(
+                'submit',
+                (e) => {
+
+                    e.preventDefault();
+
+                    const submitBtn =
+                        contactForm.querySelector(
+                            '.submit-btn'
+                        );
+
+                    const originalText =
+                        submitBtn.textContent;
+
+                    submitBtn.textContent =
+                        'Message Sent! ✓';
+
+                    submitBtn.style.background =
+                        'var(--accent)';
+
+                    setTimeout(() => {
+
+                        submitBtn.textContent =
+                            originalText;
+
+                        submitBtn.style.background =
+                            'var(--primary-white)';
+
+                        contactForm.reset();
+
+                    }, 3000);
+                }
+            );
+        }
+
+
+        console.log(
+            '%cWelcome to VoidRecords',
+            'color: white; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px rgba(255,255,255,0.5);'
+        );
+
+        console.log(
+            '%cMusic Without Boundaries',
+            'color: #e0e0e0; font-size: 14px;'
+        );
+
+    </script>
+
+</body>
+</html>
